@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "307811742233",
+    "firebase_url": "https://ce2006-database-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "ce2006-database",
+    "storage_bucket": "ce2006-database.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:307811742233:android:5c0216cb1c0d9f974fb088",
+        "android_client_info": {
+          "package_name": "com.example.gmodsv1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "307811742233-h1rfcfqs82hqbdab4vbv8g430n2om35e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABI7ijTWMMi-wAFUmg1R4D3aa-lbUYzUY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "307811742233-h1rfcfqs82hqbdab4vbv8g430n2om35e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:307811742233:android:3a467e06af2e2fc34fb088",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "307811742233-h1rfcfqs82hqbdab4vbv8g430n2om35e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABI7ijTWMMi-wAFUmg1R4D3aa-lbUYzUY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "307811742233-h1rfcfqs82hqbdab4vbv8g430n2om35e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:307811742233:android:e4ef252e83edebc14fb088",
+        "android_client_info": {
+          "package_name": "com.example.ntuapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "307811742233-h1rfcfqs82hqbdab4vbv8g430n2om35e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABI7ijTWMMi-wAFUmg1R4D3aa-lbUYzUY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "307811742233-h1rfcfqs82hqbdab4vbv8g430n2om35e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
