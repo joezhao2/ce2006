@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="@color/light_grey">
+    android:background="@drawable/cresenthall">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -22,18 +22,18 @@
             android:layout_marginTop="20dp"
             android:adjustViewBounds="true"
             android:maxWidth="180dp"
-            app:srcCompat="@drawable/ic_logo" />
+            app:srcCompat="@drawable/ntulogosmall" />
 
         <TextView
             android:id="@+id/textView_main_head"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/imageView_logo"
             android:layout_marginTop="10dp"
             android:text="Welcome to Galactic Modules"
             android:textAlignment="center"
-            android:layout_below = "@+id/imageView_logo"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            />
+            android:textColor="@color/white"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -43,6 +43,7 @@
             android:layout_marginTop="100dp"
             android:layout_marginLeft="70dp"
             android:layout_marginRight="70dp"
+            android:backgroundTint="#c0c0c0"
             />
 
         <Button
@@ -54,6 +55,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginLeft="70dp"
             android:layout_marginRight="70dp"
+            android:backgroundTint="#c0c0c0"
             />
 
 

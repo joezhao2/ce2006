@@ -90,9 +90,51 @@ public class FirestoreListActivity extends AppCompatActivity {
     public void onRefreshClick(View view) {
 
         EditText searchBar =findViewById(R.id.searchbar);
+        String s=searchBar.getText().toString();
+        Log.d("click and i got",s);
+        ListView moduleListView = findViewById(R.id.moduleListView);
+        adapter = new ArrayAdapter<moduleclass>(
+                FirestoreListActivity.this,//activity is this
+                android.R.layout.simple_list_item_1,//how it list(text view, display and module.toString
+                //if toString() method not defined in class, it will show class fullname@hex addr
+                new ArrayList<moduleclass>()
+        );
+        mDb.collection(MODULES)
+                .whereEqualTo("coursecode",s.toString().toUpperCase())
+                .get()//.get(); get all item
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        ArrayList<moduleclass> moduleslist = new ArrayList<>();
+                        for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                            moduleclass m =document.toObject(moduleclass.class);
+                            moduleslist.add(m);
+                            Log.d("firebase", m.getCoursecode() + " "+m.getName()+" "+m.getAU());
+                        } //for loop
+                        adapter.clear();
+                        adapter.addAll(moduleslist);
+                        moduleListView.setAdapter(adapter);
+
+                        moduleListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                if(true){
+                                    //startActivity(new Intent(FirestoreListActivity.this, listviewonclick2.class));
+                                    Intent intent = new Intent(FirestoreListActivity.this,listviewonclick2.class);
+                                    intent.putExtra("course",s.toString().toUpperCase());
+                                    startActivity(intent);
+
+                                }
+                            }
+                        });
+                    }
+
+                });
+
         searchBar.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
 
             }
 
