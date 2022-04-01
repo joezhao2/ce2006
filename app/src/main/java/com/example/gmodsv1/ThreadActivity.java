@@ -179,6 +179,7 @@ public class ThreadActivity extends AppCompatActivity {
                                 adapter.addAll(commentlist);
                                 commentlistview.setAdapter(adapter);
                                 adapter.notifyDataSetChanged();
+                                commentEditText.getText().clear();
 
                             }
                         }
