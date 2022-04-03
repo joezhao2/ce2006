@@ -50,7 +50,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        getSupportActionBar().setTitle("Register");
+        getSupportActionBar().hide();
 
         Toast.makeText(this, "You can register now..", Toast.LENGTH_LONG).show();
         progressBar = findViewById(R.id.progressBar);
@@ -102,70 +102,51 @@ public class RegisterActivity extends AppCompatActivity {
                 String textConfirmPwd = editTextRegisterConfirmPwd.getText().toString();
                 String textGender;
 
-                //Validate Mobile Number using Matcher and Pattern (Regular Expression)
-//                String mobileRegex = "[6-9][0-9]{9}"; //First number can be {6,7,8,9} and rest can be any no
-//                Matcher mobileMatcher;
-//                Pattern mobilePattern = Pattern.compile(mobileRegex);
-//                mobileMatcher = mobilePattern.matcher(textMobile);
 
+                // User Input Checking
                 if (TextUtils.isEmpty(textFullName)){
-                    Toast.makeText(RegisterActivity.this, "Please enter your full name", Toast.LENGTH_SHORT).show();
                     editTextRegisterFullName.setError("Full Name is required");
                     editTextRegisterFullName.requestFocus();
                 }
                 else if (TextUtils.isEmpty(textEmail)){
-                    Toast.makeText(RegisterActivity.this, "Please enter your email", Toast.LENGTH_SHORT).show();
                     editTextRegisterEmail.setError("Email is required");
                     editTextRegisterEmail.requestFocus();
                 }
                 else if (!Patterns.EMAIL_ADDRESS.matcher(textEmail).matches()){
-                    Toast.makeText(RegisterActivity.this, "Please enter your valid email", Toast.LENGTH_SHORT).show();
                     editTextRegisterEmail.setError("Valid email is required");
                     editTextRegisterEmail.requestFocus();
                 }
                 else if (TextUtils.isEmpty(textDoB)){
-                    Toast.makeText(RegisterActivity.this, "Please enter your DOB", Toast.LENGTH_SHORT).show();
                     editTextRegisterDoB.setError("DOB is required");
                     editTextRegisterDoB.requestFocus();
                 }
                 else if (radioGroupRegisterGender.getCheckedRadioButtonId() == -1){
-                    Toast.makeText(RegisterActivity.this, "Please select your gender", Toast.LENGTH_SHORT).show();
                     radioButtonRegisterGenderSelected.setError("Gender is required");
                     radioButtonRegisterGenderSelected.requestFocus();
                 }
                 else if (TextUtils.isEmpty(textMobile)){
-                    Toast.makeText(RegisterActivity.this, "Please enter your Mobile", Toast.LENGTH_SHORT).show();
                     editTextRegisterMobile.setError("Mobile is required");
                     editTextRegisterMobile.requestFocus();
                 }
-//                else if (!mobileMatcher.find()){
-//                    Toast.makeText(RegisterActivity.this, "Please enter a valid Mobile no", Toast.LENGTH_SHORT).show();
-//                    editTextRegisterMobile.setError("Valid mobile no is required");
-//                    editTextRegisterMobile.requestFocus();
-//                }
-                else if (textMobile.length() != 8){
-                    Toast.makeText(RegisterActivity.this, "Please re-enter your mobile no", Toast.LENGTH_SHORT).show();
-                    editTextRegisterMobile.setError("Mobile No should be 8 digits");
+
+                else if (textMobile.length() < 8){
+                    editTextRegisterMobile.setError("Please enter a valid phone number");
                     editTextRegisterMobile.requestFocus();
                 }
                 else if (TextUtils.isEmpty(textPwd)){
-                    Toast.makeText(RegisterActivity.this, "Please enter password", Toast.LENGTH_SHORT).show();
                     editTextRegisterPwd.setError("Password is required");
                     editTextRegisterPwd.requestFocus();
                 }
-                else if (textPwd.length() < 6){
-                    Toast.makeText(RegisterActivity.this, "Password should be at least 6 digits", Toast.LENGTH_SHORT).show();
+                else if (textPwd.length() < 8 || !isValidPassword(textPwd)){
                     editTextRegisterPwd.setError("Password too weak");
                     editTextRegisterPwd.requestFocus();
                 }
                 else if (TextUtils.isEmpty(textConfirmPwd)){
-                    Toast.makeText(RegisterActivity.this, "Please confirm your password", Toast.LENGTH_SHORT).show();
-                    editTextRegisterConfirmPwd.setError("Password confirmation is required");
+                    editTextRegisterConfirmPwd.setError("Please enter your password again");
                     editTextRegisterConfirmPwd.requestFocus();
                 }
                 else if (!textPwd.equals(textConfirmPwd)){
-                    Toast.makeText(RegisterActivity.this, "Please enter same password", Toast.LENGTH_SHORT).show();
-                    editTextRegisterConfirmPwd.setError("Password confirmation is required");
+                    editTextRegisterConfirmPwd.setError("Password key-in is not the same");
                     editTextRegisterConfirmPwd.requestFocus();
                     //clear the entered password
                     editTextRegisterPwd.clearComposingText();
@@ -179,6 +160,17 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
+
+    //Password authenticator method
+    public static boolean isValidPassword(final String password){
+        Pattern pattern;
+        Matcher matcher;
+        final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$";
+        pattern = Pattern.compile(PASSWORD_PATTERN);
+        matcher = pattern.matcher(password);
+        return matcher.matches();
+    }
+
 
     //Register User in Firebase
     private void registerUser(String textFullName, String textEmail, String textDoB, String textGender, String textMobile, String textPwd) {
@@ -233,7 +225,7 @@ public class RegisterActivity extends AppCompatActivity {
                         else {
                             try {
                                 throw task.getException();
-
+                                //Error Handling from Firebase Built-in functions
                             } catch (FirebaseAuthWeakPasswordException e) {
                                 editTextRegisterPwd.setError("Your password is too weak!");
                                 editTextRegisterPwd.requestFocus();

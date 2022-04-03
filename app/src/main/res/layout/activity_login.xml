@@ -4,25 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity"
-    android:background="@color/light_grey">
+    android:background="@drawable/regpagebg"
+    tools:context=".LoginActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="15dp"
         android:layout_margin="15dp"
-        android:background="@color/white">
+        android:padding="15dp">
 
         <TextView
+            android:id="@+id/textView_login_head"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/textView_login_head"
             android:layout_marginTop="30dp"
             android:text="Please enter your credentials to login"
             android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            />
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
         <TextView
             android:id="@+id/textView_login_email"
@@ -45,7 +43,6 @@
             android:inputType="textEmailAddress"
             android:paddingTop="6dp"
             android:textSize="16sp" />
-
 
 
         <TextView
@@ -81,38 +78,36 @@
             android:textSize="16sp" />
 
         <Button
+            android:id="@+id/button_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Login"
-            android:id="@+id/button_login"
             android:layout_below="@+id/editText_login_pwd"
+            android:layout_marginLeft="70dp"
             android:layout_marginTop="50dp"
             android:layout_marginRight="70dp"
-            android:layout_marginLeft="70dp"/>
+            android:text="Login" />
 
         <Button
+            android:id="@+id/button_forgot_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Forgot Password?"
-            android:id="@+id/button_forgot_password"
             android:layout_below="@+id/button_login"
+            android:layout_marginLeft="70dp"
             android:layout_marginRight="70dp"
-            android:layout_marginLeft="70dp"/>
+            android:text="Forgot Password?" />
 
         <ProgressBar
+            android:id="@+id/progressbar_login"
+            style="?android:attr/progressBarStyleLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="?android:attr/progressBarStyleLarge"
-            android:id="@+id/progressbar_login"
-            android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
             android:elevation="10dp"
-            android:visibility="gone"
-            />
+            android:visibility="gone" />
 
 
     </RelativeLayout>
-
 
 
 </ScrollView>

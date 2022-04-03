@@ -14,6 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -26,7 +27,6 @@ public class UserProfileActivity extends AppCompatActivity {
 
     private TextView textViewWelcome , textViewFullName , textViewEmail , textViewDoB , textViewGender , textViewMobile;
     private ProgressBar progressBar;
-    private Button signOutButton;
     private String fullName , email , doB , gender , mobile;
     private ImageView imageView;
     private FirebaseAuth authProfile;
@@ -36,7 +36,7 @@ public class UserProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
 
-        getSupportActionBar().setTitle("User Details");
+        getSupportActionBar().hide();
 
         textViewWelcome = findViewById(R.id.textView_show_welcome);
         textViewFullName = findViewById(R.id.textView_show_full_name);
@@ -45,7 +45,7 @@ public class UserProfileActivity extends AppCompatActivity {
         textViewGender = findViewById(R.id.textView_show_gender);
         textViewMobile = findViewById(R.id.textView_show_mobile);
         progressBar = findViewById(R.id.progressbar_viewProfile);
-        signOutButton = findViewById(R.id.button_sign_out);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
 
 
@@ -60,17 +60,25 @@ public class UserProfileActivity extends AppCompatActivity {
             showUserProfile(firebaseUser);
         }
 
-        //Sign out function
-        signOutButton.setOnClickListener(new View.OnClickListener() {
+        //set home selected
+        bottomNavigationView.setSelectedItemId(R.id.home);
+
+        //perform item selected listener , switching between the activities when clicked
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public void onClick(View view) {
-                authProfile.signOut();
-                Toast.makeText(UserProfileActivity.this, "You have signed out!", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(UserProfileActivity.this,MainActivity.class);
-                //Clear stacks to prevent user from coming back
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-                finish();
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId())
+                {
+                    case R.id.search:
+                        startActivity(new Intent(UserProfileActivity.this, FirestoreListActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.settings:
+                        startActivity(new Intent(UserProfileActivity.this , LogoutActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                }
+                return false;
             }
         });
     }
@@ -109,47 +117,5 @@ public class UserProfileActivity extends AppCompatActivity {
             }
         });
 
-    }
-
-
-    //Creating ActionBar Menu
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        //Inflate  menu items
-        getMenuInflater().inflate(R.menu.common_menu , menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    //When any menu item is selected
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item){
-        int id = item.getItemId();
-
-        if (id == R.id.menu_refresh){
-            //Refresh Activity
-            startActivity(getIntent());
-            finish();
-            overridePendingTransition(0,0);
-        }/*
-        else if (id == R.id.menu_update_profile){
-            Intent intent = new Intent(UserProfileActivity.this , UpdateProfileActivity.class);
-            startActivity(intent);
-        }
-        else if (id == R.id.menu_update_email){
-            Intent intent = new Intent(UserProfileActivity.this , UpdateEmailActivity.class);
-            startActivity(intent);
-        }
-        else if (id == R.id.menu_change_password){
-            Intent intent = new Intent(UserProfileActivity.this , ChangePasswordActivity.class);
-            startActivity(intent);
-        }
-        else if (id == R.id.menu_delete_profile){
-            Intent intent = new Intent(UserProfileActivity.this , DeleteProfileActivity.class);
-            startActivity(intent);
-        } */
-        else {
-            Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show();
-        }
-        return super.onOptionsItemSelected(item);
     }
 }

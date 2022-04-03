@@ -7,6 +7,7 @@ import android.sax.StartElementListener;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,10 +15,12 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -32,11 +35,36 @@ public class FirestoreListActivity extends AppCompatActivity {
 
     private ArrayAdapter<moduleclass> adapter;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_firestore_list);
+        getSupportActionBar().hide();
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView_search);
 
+        //set home selected
+        bottomNavigationView.setSelectedItemId(R.id.search);
+
+        //perform item selected listener , switching between the activities when clicked
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId())
+                {
+                    case R.id.home:
+                        startActivity(new Intent(FirestoreListActivity.this, UserProfileActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.settings:
+                        startActivity(new Intent(FirestoreListActivity.this , LogoutActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                }
+                return false;
+            }
+        });
 //        EditText searchBar =findViewById(R.id.searchbar);
 //        searchBar.addTextChangedListener(new TextWatcher() {
 //            @Override

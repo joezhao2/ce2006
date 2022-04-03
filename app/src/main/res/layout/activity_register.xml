@@ -4,23 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegisterActivity"
-    android:background="@color/light_grey">
+    android:background="@drawable/regpagebg"
+    tools:context=".RegisterActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
-        android:background="@color/white"
         android:padding="15dp">
 
         <TextView
             android:id="@+id/textView_register_head"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Please Enter your details to register on the App"
+            android:layout_width="351dp"
+            android:layout_height="74dp"
+            android:text="GMOD"
             android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="#3F51B5"
+            android:textSize="40sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textView_register_full_name"
@@ -80,8 +82,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/textView_register_dob"
             android:background="@drawable/border"
-            android:hint="Select your Date of Birth (dd/mm/yyyy)"
             android:focusable="false"
+            android:hint="Select your Date of Birth (dd/mm/yyyy)"
             android:inputType="date"
             android:padding="6dp"
             android:textSize="16sp" />
@@ -205,8 +207,6 @@
 
 
     </RelativeLayout>
-
-
 
 
 </ScrollView>

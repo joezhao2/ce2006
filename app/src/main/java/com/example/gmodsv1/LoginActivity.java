@@ -39,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        getSupportActionBar().setTitle("Login");
+        getSupportActionBar().hide();
 
         editTextLoginEmail = findViewById(R.id.editText_login_email);
         editTextLoginPwd = findViewById(R.id.editText_login_pwd);
@@ -87,17 +87,14 @@ public class LoginActivity extends AppCompatActivity {
                 String textPwd = editTextLoginPwd.getText().toString();
 
                 if (TextUtils.isEmpty(textEmail)){
-                    Toast.makeText(LoginActivity.this, "Please enter your email", Toast.LENGTH_SHORT).show();
                     editTextLoginEmail.setError("Email is required");
                     editTextLoginEmail.requestFocus();
                 }
                 else if (!Patterns.EMAIL_ADDRESS.matcher(textEmail).matches()){
-                    Toast.makeText(LoginActivity.this, "Please enter valid email", Toast.LENGTH_SHORT).show();
                     editTextLoginEmail.setError("Valid email is required");
                     editTextLoginEmail.requestFocus();
                 }
                 else if (TextUtils.isEmpty(textPwd)){
-                    Toast.makeText(LoginActivity.this, "Please enter password", Toast.LENGTH_SHORT).show();
                     editTextLoginPwd.setError("Password is required");
                     editTextLoginPwd.requestFocus();
                 }
@@ -118,7 +115,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
                     //Start the UserProfileActivity
-                    startActivity(new Intent(LoginActivity.this , FirestoreListActivity.class));
+                    startActivity(new Intent(LoginActivity.this , UserProfileActivity.class));
                     finish(); // Close Login Activity
 
 
@@ -194,7 +191,7 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(this, "Welcome back", Toast.LENGTH_SHORT).show();
 
             //Start the UserProfileActivity
-            startActivity(new Intent(LoginActivity.this , FirestoreListActivity.class));
+            startActivity(new Intent(LoginActivity.this , UserProfileActivity.class));
             finish(); // Close Login Activity
         }
         else {
