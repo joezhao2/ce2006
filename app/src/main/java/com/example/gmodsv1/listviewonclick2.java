@@ -36,6 +36,7 @@ import java.util.List;
 import java.util.Map;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -115,6 +116,7 @@ public class listviewonclick2 extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
         setOnClickListener(s);
+        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
     }
 
     private void setOnClickListener(String s) {
@@ -175,4 +177,26 @@ public class listviewonclick2 extends AppCompatActivity {
 
 
     }
+    ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.RIGHT) {
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            return false;
+        }
+
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            Log.d("course123",userList.get(viewHolder.getAdapterPosition()).getTextview2().substring(0,6));
+            Log.d("course123",userList.get(viewHolder.getAdapterPosition()).getTextview2().substring(6,26));
+            mDb.collection(MODULES)
+                    .document(userList.get(viewHolder.getAdapterPosition()).getTextview2().substring(0,6))
+                    .collection("thread")
+                    .document(userList.get(viewHolder.getAdapterPosition()).getTextview2().substring(6))
+                    .delete();
+            userList.remove(viewHolder.getAdapterPosition());//get position of the thread obj to remove
+            adapter.notifyDataSetChanged();
+
+
+
+        }
+    };
 }
