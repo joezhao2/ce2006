@@ -5,64 +5,69 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="95dp"
-        android:background="#ffffff">
-        <androidx.cardview.widget.CardView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:id="@+id/imageview"
-            app:cardCornerRadius="60dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="20dp">
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:scaleType="centerCrop"
-                android:id="@+id/imageview1"
-                android:src="@drawable/ic_baseline_person_outline_24">
-        </ImageView>
-        </androidx.cardview.widget.CardView>
-        <TextView
-            android:layout_width="200dp"
-            android:layout_height="30dp"
-            android:id="@+id/textview3"
-            android:text="buttercookie"
-            android:textColor="#000000"
-            android:textSize="20sp"
-            android:layout_toRightOf="@id/imageview"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="20dp">
 
-        </TextView>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/imageview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="20dp"
+            app:cardPreventCornerOverlap="true"
+            app:cardUseCompatPadding="true"
+            app:cardBackgroundColor="#F8C8DC">
+
+            <ImageView
+                android:id="@+id/imageview1"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="15dp"
+                android:src="@drawable/ic_baseline_person_outline_24">
+
+            </ImageView>
+
+
+
+            <TextView
+                android:id="@+id/textview3"
+                android:layout_width="300dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="20dp"
+                android:text="buttercookie"
+                android:textColor="#000000"
+                android:textSize="20sp">
+
+            </TextView>
+
         <TextView
+            android:id="@+id/textview2"
             android:layout_width="80dp"
             android:layout_height="30dp"
-            android:id="@+id/textview2"
-            android:text="threadid"
-            android:visibility="invisible"
-            android:textSize="5sp"
-            android:layout_toRightOf="@id/textview"
+            android:layout_marginLeft="75dp"
             android:layout_marginTop="20dp"
-            android:layout_marginLeft="75dp">
+            android:layout_toRightOf="@id/textview"
+            android:text="threadid"
+            android:textSize="5sp"
+            android:visibility="invisible">
 
         </TextView>
 
         <TextView
             android:id="@+id/textview"
-            android:layout_width="100dp"
-            android:layout_height="30dp"
+            android:layout_width="70dp"
+            android:layout_height="20dp"
             android:layout_below="@id/textview3"
-            android:layout_marginLeft="25dp"
-            android:layout_toRightOf="@id/imageview"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="45dp"
             android:text="username"
-            android:textColor="@color/dark_green"
+            android:textColor="#ff6961"
             android:textSize="10sp">
 
         </TextView>
 
+        </androidx.cardview.widget.CardView>
 
-    </RelativeLayout>
+
 
 </RelativeLayout>

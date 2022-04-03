@@ -52,6 +52,7 @@ public class listviewonclick2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listviewonclick2);
+        getSupportActionBar().hide();
         Intent intent = getIntent();
         String s = intent.getStringExtra("course");
 
@@ -135,6 +136,7 @@ public class listviewonclick2 extends AppCompatActivity {
         
     }
     public void onSubmitClickThread(View view){
+        /*
         EditText user=findViewById(R.id.useradd);
         EditText thread=findViewById(R.id.threadadd);
         String u=user.getText().toString();
@@ -163,40 +165,14 @@ public class listviewonclick2 extends AppCompatActivity {
                 .set(data2, SetOptions.merge());
         //initRecyclerView(s);
 
-        Adapter adapter;
-        initData();
-        userList.clear();
-        initRecyclerView(s);
+        */
+        Intent intent=getIntent();
+        String s = intent.getStringExtra("course");
+        Intent intent2 = new Intent(listviewonclick2.this,ThreadAddActivity.class);
+        intent2.putExtra("course",s);
+        //intent.putExtra("course",s.toString().toUpperCase());
+        startActivity(intent2);
 
-
-        mDb.collection(MODULES)
-                .document(s)
-                .collection("thread")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                if (document.exists()) {
-                                    String title = document.get("message").toString();
-                                    String user = document.get("userName").toString();
-                                    //Do what you need to do with your ArrayList
-                                    ArrayList<String> arrayListcomments = (ArrayList<String>) document.get("comments");
-                                    for (String s : arrayListcomments) {
-                                        Log.d("comments", s);
-                                    }
-                                    ModelClass m= new ModelClass(R.drawable.photo6208635785310221009,user, s+document.getId(), title);
-                                    userList.add(m);
-                                    initRecyclerView(s+document.getId());
-                                    Log.d("name+id",s+document.getId());
-
-
-                                }
-                            }
-                        }
-                    }
-                });
 
     }
 }

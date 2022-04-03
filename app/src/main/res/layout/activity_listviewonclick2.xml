@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/skyline3"
+    android:background="#A7C7E7"
     android:orientation="vertical"
     tools:context=".listviewonclick2">
 
@@ -12,10 +12,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/mainview"
-        android:text="Talk"
+        android:text="Modules Forum"
         android:layout_margin="30dp"
         android:gravity="center"
-        android:textColor="#FFFFFF"
+        android:textColor="#B3446C"
         android:textSize="30dp"
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent"
@@ -28,39 +28,10 @@
         android:id="@+id/recyclerviewheader"
         android:scrollbars="vertical"
         />
-    <EditText
-        android:id="@+id/threadadd"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/recyclerviewheader"
-        android:hint="Add thread"
-        android:textColor="@color/black"
-        android:textColorHint="@color/grey"
-        android:inputType="text"
-        android:selectAllOnFocus="true"
-        android:layout_margin="5dp"
-        android:padding="20dp"
-        android:background="#ffffff"
-        android:drawablePadding="20dp"
-        android:textSize="18sp" />
-    <EditText
-        android:id="@+id/useradd"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/threadadd"
-        android:hint="Input username"
-        android:textColor="@color/black"
-        android:textColorHint="@color/grey"
-        android:inputType="text"
-        android:selectAllOnFocus="true"
-        android:layout_margin="5dp"
-        android:padding="20dp"
-        android:background="#ffffff"
-        android:drawablePadding="20dp"
-        android:textSize="18sp" />
+
 
     <Button
-        android:id="@+id/subitcomment"
+        android:id="@+id/threadaddbuttontoswitch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -68,6 +39,6 @@
         android:layout_marginTop="20dp"
         android:backgroundTint="#FFD700"
         android:onClick="onSubmitClickThread"
-        android:text="Submit"
-        app:layout_constraintTop_toBottomOf="@id/useradd"/>
+        android:text="ADD NEW THREAD"
+        app:layout_constraintTop_toBottomOf="@id/recyclerviewheader"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

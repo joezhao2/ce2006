@@ -38,6 +38,7 @@ public class ThreadActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thread);
+        getSupportActionBar().hide();
 
         ListView commentlistview = findViewById(R.id.commentlist);
         adapter = new ArrayAdapter<String>(
@@ -51,7 +52,7 @@ public class ThreadActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String title = intent.getStringExtra("threadtitle");
         String s=intent.getStringExtra("course").substring(0,6);
-        String s1=intent.getStringExtra("course").substring(6);
+        String s1=intent.getStringExtra("course").substring(6,26);
         TextView threadtitle = findViewById(R.id.threadtitle);
         threadtitle.setText(title);
         Log.d("coursename",s);
