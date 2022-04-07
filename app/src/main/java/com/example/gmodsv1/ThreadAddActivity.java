@@ -10,6 +10,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 
@@ -26,6 +28,8 @@ public class ThreadAddActivity extends AppCompatActivity {
     List<ModelClass> userList;
     Adapter adapter;
     private Adapter.RecyclerViewClickListener listener;
+    private FirebaseUser fbuser = FirebaseAuth.getInstance().getCurrentUser();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,13 +61,14 @@ public class ThreadAddActivity extends AppCompatActivity {
         Map<String, String> data2 = new HashMap<>();
         data2.put("userName",u);
         data2.put("message",t);
+        data2.put("userid",fbuser.getUid());
         mDb.collection(MODULES)
                 .document(s)
                 .collection("thread")
                 .document(id)
                 .set(data2, SetOptions.merge());
         //initRecyclerView(s);
-
+        //adapter.notifyDataSetChanged();
         intent = new Intent(ThreadAddActivity.this,listviewonclick2.class);
         intent.putExtra("course",s);
         startActivity(intent);

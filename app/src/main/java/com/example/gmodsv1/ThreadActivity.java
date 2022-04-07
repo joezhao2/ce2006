@@ -1,5 +1,6 @@
 package com.example.gmodsv1;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.sax.StartElementListener;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -83,41 +85,62 @@ public class ThreadActivity extends AppCompatActivity {
                                 commentlistview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                     @Override
                                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                        {   String data=(String)adapterView.getItemAtPosition(i);
-                                            mDb.collection(MODULES)
-                                                    .document(s)
-                                                    .collection("thread")
-                                                    .document(s1)
-                                                    .update("comments", FieldValue.arrayRemove(data));
-                                            //startActivity(new Intent(FirestoreListActivity.this, listviewonclick2.class));
-                                            mDb.collection(MODULES)
-                                                    .document(s)
-                                                    .collection("thread")
-                                                    .document(s1)
-                                                    .get()
-                                                    .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                        {
+                                            String data=(String)adapterView.getItemAtPosition(i);
+                                            Log.d("Deleting comment",data);
+                                            new AlertDialog.Builder(adapterView.getContext())
+                                                    .setMessage("Are you sure you wan to delete this comment?")
+                                                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                                         @Override
-                                                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                                            if (task.isSuccessful()) {
-                                                                ArrayList<String> commentlist = new ArrayList<>();
-                                                                DocumentSnapshot document = task.getResult();
-                                                                if (document.exists()) {
-                                                                    ArrayList<String> arrayList = (ArrayList<String>) document.get("comments");
-                                                                    //Do what you need to do with your ArrayList
-                                                                    for (String s : arrayList) {
-                                                                        Log.d("comments", s);
-                                                                        commentlist.add(s);
-                                                                    }
+                                                        public void onClick(DialogInterface dialogInterface, int i) {
 
-                                                                    adapter.clear();
-                                                                    adapter.addAll(commentlist);
-                                                                    commentlistview.setAdapter(adapter);
-                                                                    adapter.notifyDataSetChanged();
+                                                            mDb.collection(MODULES)
+                                                                    .document(s)
+                                                                    .collection("thread")
+                                                                    .document(s1)
+                                                                    .update("comments", FieldValue.arrayRemove(data));
+                                                            //refresh kekek
+                                                            mDb.collection(MODULES)
+                                                                    .document(s)
+                                                                    .collection("thread")
+                                                                    .document(s1)
+                                                                    .get()
+                                                                    .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                                        @Override
+                                                                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                                            if (task.isSuccessful()) {
+                                                                                ArrayList<String> commentlist = new ArrayList<>();
+                                                                                DocumentSnapshot document = task.getResult();
+                                                                                if (document.exists()) {
+                                                                                    ArrayList<String> arrayList = (ArrayList<String>) document.get("comments");
+                                                                                    //Do what you need to do with your ArrayList
+                                                                                    for (String s : arrayList) {
+                                                                                        Log.d("comments", s);
+                                                                                        commentlist.add(s);
+                                                                                    }
 
-                                                                }
-                                                            }
+                                                                                    adapter.clear();
+                                                                                    adapter.addAll(commentlist);
+                                                                                    commentlistview.setAdapter(adapter);
+                                                                                    adapter.notifyDataSetChanged();
+
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    });
+
+
                                                         }
-                                                    });
+                                                    })
+                                                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                                            adapter.notifyDataSetChanged();
+                                                        }
+                                                    })
+                                                    .create()
+                                                    .show();
+
 
                                         }
                                     }

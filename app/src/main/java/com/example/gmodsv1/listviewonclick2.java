@@ -1,5 +1,6 @@
 package com.example.gmodsv1;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.sax.StartElementListener;
@@ -15,11 +16,14 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -48,6 +52,8 @@ public class listviewonclick2 extends AppCompatActivity {
     List<ModelClass> userList;
     Adapter adapter;
     private Adapter.RecyclerViewClickListener listener;
+    private FirebaseUser fbuser = FirebaseAuth.getInstance().getCurrentUser();
+    private String fbuserid =fbuser.getUid();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -174,6 +180,7 @@ public class listviewonclick2 extends AppCompatActivity {
         intent2.putExtra("course",s);
         //intent.putExtra("course",s.toString().toUpperCase());
         startActivity(intent2);
+        initRecyclerView(s);
 
 
     }
@@ -185,18 +192,75 @@ public class listviewonclick2 extends AppCompatActivity {
 
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-            Log.d("course123",userList.get(viewHolder.getAdapterPosition()).getTextview2().substring(0,6));
-            Log.d("course123",userList.get(viewHolder.getAdapterPosition()).getTextview2().substring(6,26));
-            mDb.collection(MODULES)
-                    .document(userList.get(viewHolder.getAdapterPosition()).getTextview2().substring(0,6))
+            /*new AlertDialog.Builder(viewHolder.itemView.getContext())
+                    .setMessage("Are you sure?")
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener(){
+                    public void onClick(DialogInterface dialog, int id) {
+                // Get the position of the item to be deleted
+                    int position = viewHolder.getAdapterPosition();
+                // Then you can remove this item from the adapter
+                    })*/
+
+        mDb.collection(MODULES)
+                    .document(userList.get(viewHolder.getAdapterPosition()).getTextview2().substring(0, 6))
                     .collection("thread")
                     .document(userList.get(viewHolder.getAdapterPosition()).getTextview2().substring(6))
-                    .delete();
-            userList.remove(viewHolder.getAdapterPosition());//get position of the thread obj to remove
-            adapter.notifyDataSetChanged();
+                    //.collection("userid")
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                               @Override
+                                               public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                   if (task.isSuccessful()) {
+                                                       DocumentSnapshot document = task.getResult();
+                                                       String struserid=document.get("userid").toString();
+                                                       Log.d("checkinguid",struserid) ;
+                                                       Log.d("checkinguid2",fbuserid) ;
+                                                       if(struserid.equals(fbuserid)) {
+                                                           new AlertDialog.Builder(viewHolder.itemView.getContext())
+                                                                   .setMessage("Deleting thread, are you sure?")
+                                                                   .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                                                       @Override
+                                                                       public void onClick(DialogInterface dialogInterface, int i) {
+                                                                           Log.d("course123", userList.get(viewHolder.getAdapterPosition()).getTextview2().substring(0, 6));
+                                                                           Log.d("course123", userList.get(viewHolder.getAdapterPosition()).getTextview2().substring(6, 26));
+                                                                           mDb.collection(MODULES)
+                                                                                   .document(userList.get(viewHolder.getAdapterPosition()).getTextview2().substring(0, 6))
+                                                                                   .collection("thread")
+                                                                                   .document(userList.get(viewHolder.getAdapterPosition()).getTextview2().substring(6))
+                                                                                   .delete();
+                                                                           userList.remove(viewHolder.getAdapterPosition());//get position of the thread obj to remove
+                                                                           adapter.notifyDataSetChanged();
+
+
+                                                                       }
+                                                                   })
+                                                                   .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                                                       public void onClick(DialogInterface dialog, int id) {
+                                                                           // User cancelled the dialog,
+                                                                           // so we will refresh the adapter to prevent hiding the item from UI
+                                                                           adapter.notifyItemChanged(viewHolder.getAdapterPosition());
+                                                                       }
+                                                                   })
+                                                                   .create()
+                                                                   .show();
+                                                       }
+                                                       else{
+                                                           Log.d("checkinguid3","unable to delete!!!");
+                                                           adapter.notifyItemChanged(viewHolder.getAdapterPosition());
+                                                       }
+
+                                                   }
+                                               }
+                        });
 
 
 
-        }
+            //if(fbuser.getUid()){}
+
+            }
+
+
+
+
     };
 }
