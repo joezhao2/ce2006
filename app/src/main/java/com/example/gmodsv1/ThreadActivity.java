@@ -74,8 +74,10 @@ public class ThreadActivity extends AppCompatActivity {
                                 ArrayList<String> arrayList = (ArrayList<String>) document.get("comments");
                                 //Do what you need to do with your ArrayList
                                 for (String s : arrayList) {
-                                    Log.d("comments", s);
-                                    commentlist.add(s);
+                                    if(s!=""){
+                                        Log.d("comments", s);
+                                        commentlist.add(s);
+                                    }
                                 }
 
                                 adapter.clear();
@@ -115,8 +117,10 @@ public class ThreadActivity extends AppCompatActivity {
                                                                                     ArrayList<String> arrayList = (ArrayList<String>) document.get("comments");
                                                                                     //Do what you need to do with your ArrayList
                                                                                     for (String s : arrayList) {
-                                                                                        Log.d("comments", s);
-                                                                                        commentlist.add(s);
+                                                                                        if(s!=""){
+                                                                                            Log.d("comments", s);
+                                                                                            commentlist.add(s);
+                                                                                        }
                                                                                     }
 
                                                                                     adapter.clear();
