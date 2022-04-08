@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".UserProfileActivity"
-    android:background="@color/light_grey">
+    android:background="@drawable/settingbg">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,27 +14,27 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:background="#5CC09F">
+            android:layout_height="250dp">
 
             <ImageView
+                android:id="@+id/imageView_profile_dp"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:id="@+id/imageView_profile_dp"
                 android:layout_centerInParent="true"
-                android:background="@drawable/default_profile_pic"/>
+                android:background="@drawable/default_profile_pic"
+                android:scaleType="fitXY"
+                />
 
             <TextView
+                android:id="@+id/textView_show_welcome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView_show_welcome"
                 android:layout_below="@id/imageView_profile_dp"
-                android:hint="Loading..."
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="5dp"
+                android:hint="Loading..."
                 android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                android:textColor="@color/white"
-                />
+                android:textColor="@color/white" />
 
         </RelativeLayout>
 

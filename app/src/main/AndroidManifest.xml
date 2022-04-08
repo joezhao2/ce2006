@@ -14,10 +14,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GMods">
         <activity
+            android:name=".UploadProfilePicActivity"
+            android:exported="false" />
+        <activity
             android:name=".ThreadAddActivity"
             android:exported="false" />
         <activity
-            android:name=".LogoutActivity"
+            android:name=".SettingActivity"
             android:exported="false" />
         <activity
             android:name=".testActivity"

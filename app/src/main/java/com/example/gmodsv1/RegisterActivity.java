@@ -197,12 +197,14 @@ public class RegisterActivity extends AppCompatActivity {
                             //Extract user reference from Database for 'Registered User' , if dont have will create one
                             DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("Registered Users");
 
+                            //inserting
+
                             referenceProfile.child(firebaseUser.getUid()).setValue(writeUserDetails).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()){
                                         //send verification email
-                                        firebaseUser.sendEmailVerification();
+                                        //firebaseUser.sendEmailVerification();
 
                                         Toast.makeText(RegisterActivity.this, "User registered", Toast.LENGTH_LONG).show();
                                         progressBar.setVisibility(View.GONE);
@@ -235,8 +237,8 @@ public class RegisterActivity extends AppCompatActivity {
                                 editTextRegisterPwd.requestFocus();
                                 progressBar.setVisibility(View.GONE);
                             } catch (FirebaseAuthUserCollisionException e){
-                                editTextRegisterPwd.setError("User already registered with this email.");
-                                editTextRegisterPwd.requestFocus();
+                                editTextRegisterEmail.setError("User already registered with this email.");
+                                editTextRegisterEmail.requestFocus();
                                 progressBar.setVisibility(View.GONE);
                             } catch (Exception e){
                                 Log.e(TAG , e.getMessage());

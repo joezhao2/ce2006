@@ -3,7 +3,6 @@ package com.example.gmodsv1;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.sax.StartElementListener;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -13,11 +12,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -58,7 +55,7 @@ public class FirestoreListActivity extends AppCompatActivity {
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.settings:
-                        startActivity(new Intent(FirestoreListActivity.this , LogoutActivity.class));
+                        startActivity(new Intent(FirestoreListActivity.this , SettingActivity.class));
                         overridePendingTransition(0,0);
                         return true;
                 }

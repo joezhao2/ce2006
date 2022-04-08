@@ -4,11 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -22,6 +21,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 public class UserProfileActivity extends AppCompatActivity {
 
@@ -45,12 +45,16 @@ public class UserProfileActivity extends AppCompatActivity {
         textViewGender = findViewById(R.id.textView_show_gender);
         textViewMobile = findViewById(R.id.textView_show_mobile);
         progressBar = findViewById(R.id.progressbar_viewProfile);
+        imageView = findViewById(R.id.imageView_profile_dp);
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
 
 
         authProfile = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = authProfile.getCurrentUser();
+
+        //set on click listener on ImageView to open UploadProfilePicActivity
+
 
         if (firebaseUser == null){
             Toast.makeText(this, "Something went wrong!", Toast.LENGTH_LONG).show();
@@ -74,7 +78,7 @@ public class UserProfileActivity extends AppCompatActivity {
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.settings:
-                        startActivity(new Intent(UserProfileActivity.this , LogoutActivity.class));
+                        startActivity(new Intent(UserProfileActivity.this , SettingActivity.class));
                         overridePendingTransition(0,0);
                         return true;
                 }
@@ -100,12 +104,20 @@ public class UserProfileActivity extends AppCompatActivity {
                     gender = readUserDetails.gender;
                     mobile = readUserDetails.mobile;
 
-                    textViewWelcome.setText("Welcome " + fullName + "!");
+                    textViewWelcome.setText("Welcome " + "!");
                     textViewFullName.setText(fullName);
                     textViewEmail.setText(email);
                     textViewDoB.setText(doB);
                     textViewGender.setText(gender);
                     textViewMobile.setText(mobile);
+
+                    //Set User Profile Pic
+                    Uri uri = firebaseUser.getPhotoUrl();
+                    //nid to use piccasso cos image in data base
+                    Picasso.with(UserProfileActivity.this).load(uri).into(imageView);
+                }
+                else {
+                    Toast.makeText(UserProfileActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
                 }
                 progressBar.setVisibility(View.GONE);
             }
