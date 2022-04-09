@@ -125,7 +125,9 @@ public class FirestoreListActivity extends AppCompatActivity {
                 new ArrayList<moduleclass>()
         );
         mDb.collection(MODULES)
-                .whereEqualTo("coursecode",s.toString().toUpperCase())
+                //.whereEqualTo("coursecode",s.toString().toUpperCase())
+                .whereGreaterThanOrEqualTo( "coursecode", s.toString().toUpperCase())
+                .whereLessThanOrEqualTo( "coursecode", s.toString().toUpperCase()+ '\uf8ff')
                 .get()//.get(); get all item
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
@@ -181,7 +183,9 @@ public class FirestoreListActivity extends AppCompatActivity {
 
                 Log.d("firebasesearchbar","search box has changed to "+ editable.toString());
                 mDb.collection(MODULES)
-                        .whereEqualTo("coursecode",editable.toString().toUpperCase())
+                        //.whereEqualTo("coursecode",editable.toString().toUpperCase())
+                        .whereGreaterThanOrEqualTo( "coursecode", editable.toString().toUpperCase())
+                        .whereLessThanOrEqualTo( "coursecode", editable.toString().toUpperCase()+ '\uf8ff')
                         .get()//.get(); get all item
                         .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                             @Override
