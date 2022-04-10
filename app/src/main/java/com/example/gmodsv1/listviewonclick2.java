@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -62,9 +63,24 @@ public class listviewonclick2 extends AppCompatActivity {
         getSupportActionBar().hide();
         Intent intent = getIntent();
         String s = intent.getStringExtra("course");
-
+        TextView coursecodebig = findViewById(R.id.mainview);
+        coursecodebig.setText(s);
         initData();
         initRecyclerView("text");
+        TextView coursenameundercoursecode =findViewById(R.id.textView5);
+        mDb.collection(MODULES)
+                .document(s)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            String coursename = document.get("name").toString();
+                            coursenameundercoursecode.setText(coursename);
+                        }
+                    }
+                });
 
 
 

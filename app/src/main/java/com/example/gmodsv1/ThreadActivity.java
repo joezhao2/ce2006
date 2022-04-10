@@ -56,7 +56,9 @@ public class ThreadActivity extends AppCompatActivity {
         String s=intent.getStringExtra("course").substring(0,6);
         String s1=intent.getStringExtra("course").substring(6,26);
         TextView threadtitle = findViewById(R.id.threadtitle);
+        //TextView threadtitle2 =findViewById(R.id.mainview);
         threadtitle.setText(title);
+        //threadtitle2.setText(s);
         Log.d("coursename",s);
         Log.d("documentID",s1);
         mDb.collection(MODULES)
