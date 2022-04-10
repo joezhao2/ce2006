@@ -2,10 +2,12 @@ package com.example.gmodsv1;
 
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.util.Pair;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -22,7 +24,13 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.IOException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class FirestoreListActivity extends AppCompatActivity {
 
@@ -32,7 +40,34 @@ public class FirestoreListActivity extends AppCompatActivity {
 
     private ArrayAdapter<moduleclass> adapter;
 
+    OkHttpClient client = new OkHttpClient();
 
+    class FetchUpdateSearchList extends AsyncTask<Request, Void, Response> {
+
+        @Override
+        protected Response doInBackground(Request... requests) {
+            Response response = null;
+            try {
+                response = client.newCall(requests[0]).execute();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return response;
+        }
+
+        @Override
+        protected void onPostExecute(Response response) {
+            super.onPostExecute(response);
+
+            ListView moduleListView = findViewById(R.id.moduleListView);
+            adapter = new ArrayAdapter<moduleclass>(
+                    FirestoreListActivity.this,//activity is this
+                    android.R.layout.simple_list_item_1,//how it list(text view, display and module.toString
+                    //if toString() method not defined in class, it will show class fullname@hex addr
+                    new ArrayList<moduleclass>()
+            );
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,11 +147,21 @@ public class FirestoreListActivity extends AppCompatActivity {
             }
         }
 */
+
+
     public void onRefreshClick(View view) {
 
         EditText searchBar =findViewById(R.id.searchbar);
         String s=searchBar.getText().toString();
         Log.d("click and i got",s);
+
+//        String url = "https://5c4c-89-187-162-120.ngrok.io/search?";
+//        String fetchUrl = url + "querystr=" + queryStr + "&results=" + numResults;
+//        Response response = null;
+//
+//        Request request = new Request.Builder()
+//                .url(url)
+//                .build();
         ListView moduleListView = findViewById(R.id.moduleListView);
         adapter = new ArrayAdapter<moduleclass>(
                 FirestoreListActivity.this,//activity is this

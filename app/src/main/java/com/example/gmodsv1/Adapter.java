@@ -55,10 +55,10 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageView=itemView.findViewById(R.id.imageview1);
-            textView=itemView.findViewById(R.id.textview);
-            textView2=itemView.findViewById(R.id.textview2);
-            textView3=itemView.findViewById(R.id.textview3);
+            imageView=itemView.findViewById(R.id.imageView1);
+            textView=itemView.findViewById(R.id.textView);
+            textView2=itemView.findViewById(R.id.textView2);
+            textView3=itemView.findViewById(R.id.textView3);
             itemView.setOnClickListener(this);
 
 
