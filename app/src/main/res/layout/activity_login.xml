@@ -85,7 +85,8 @@
             android:layout_marginLeft="70dp"
             android:layout_marginTop="50dp"
             android:layout_marginRight="70dp"
-            android:text="Login" />
+            android:text="Login"
+            android:backgroundTint="@color/grey"/>
 
         <Button
             android:id="@+id/button_forgot_password"
@@ -94,7 +95,8 @@
             android:layout_below="@+id/button_login"
             android:layout_marginLeft="70dp"
             android:layout_marginRight="70dp"
-            android:text="Forgot Password?" />
+            android:text="Forgot Password?"
+            android:backgroundTint="@color/grey"/>
 
         <ProgressBar
             android:id="@+id/progressbar_login"

@@ -194,7 +194,8 @@
             android:layout_marginLeft="70dp"
             android:layout_marginTop="50dp"
             android:layout_marginRight="70dp"
-            android:text="Register" />
+            android:text="Register"
+            android:backgroundTint="@color/grey"/>
 
         <ProgressBar
 
