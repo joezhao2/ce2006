@@ -38,7 +38,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
         getSupportActionBar().hide();
 
-        textViewWelcome = findViewById(R.id.textView_show_welcome);
+        //textViewWelcome = findViewById(R.id.textView_show_welcome);
         textViewFullName = findViewById(R.id.textView_show_full_name);
         textViewEmail = findViewById(R.id.textView_show_email);
         textViewDoB = findViewById(R.id.textView_show_dob);
@@ -104,7 +104,7 @@ public class UserProfileActivity extends AppCompatActivity {
                     gender = readUserDetails.gender;
                     mobile = readUserDetails.mobile;
 
-                    textViewWelcome.setText("Welcome " + "!");
+                    //textViewWelcome.setText("Welcome " + "!");
                     textViewFullName.setText(fullName);
                     textViewEmail.setText(email);
                     textViewDoB.setText(doB);
