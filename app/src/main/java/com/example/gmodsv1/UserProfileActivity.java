@@ -74,11 +74,15 @@ public class UserProfileActivity extends AppCompatActivity {
                 switch (item.getItemId())
                 {
                     case R.id.search:
-                        startActivity(new Intent(UserProfileActivity.this, FirestoreListActivity.class));
+                        Intent modIntent = new Intent(UserProfileActivity.this, FirestoreListActivity.class);
+                        modIntent.putExtra("fullname", fullName);
+                        startActivity(modIntent);
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.settings:
-                        startActivity(new Intent(UserProfileActivity.this , SettingActivity.class));
+                        Intent settingsIntent = new Intent(UserProfileActivity.this, SettingActivity.class);
+                        settingsIntent.putExtra("fullname", fullName);
+                        startActivity(settingsIntent);
                         overridePendingTransition(0,0);
                         return true;
                 }

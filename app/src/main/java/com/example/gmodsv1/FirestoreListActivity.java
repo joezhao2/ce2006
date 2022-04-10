@@ -194,6 +194,7 @@ public class FirestoreListActivity extends AppCompatActivity {
                                     //startActivity(new Intent(FirestoreListActivity.this, listviewonclick2.class));
                                     Intent intent = new Intent(FirestoreListActivity.this,listviewonclick2.class);
                                     intent.putExtra("course",s.toString().toUpperCase());
+                                    intent.putExtra("fullname", getIntent().getExtras().getString("fullname"));
                                     startActivity(intent);
 
                                 }

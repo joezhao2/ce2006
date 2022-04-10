@@ -99,10 +99,10 @@ public class listviewonclick2 extends AppCompatActivity {
                                     String title = document.get("message").toString();
                                     String user = document.get("userName").toString();
                                     //Do what you need to do with your ArrayList
-                                    ArrayList<String> arrayListcomments = (ArrayList<String>) document.get("comments");
-                                    for (String s : arrayListcomments) {
-                                        Log.d("comments", s);
-                                    }
+//                                    ArrayList<String> arrayListcomments = (ArrayList<String>) document.get("comments");
+//                                    for (String s : arrayListcomments) {
+//                                        Log.d("comments", s);
+//                                    }
                                     ModelClass m= new ModelClass(R.drawable.photo6208635785310221009,user, s+document.getId(), title);
                                     userList.add(m);
                                     initRecyclerView(s+document.getId());

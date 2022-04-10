@@ -57,6 +57,23 @@ public class ThreadAddActivity extends AppCompatActivity {
                 .document(id)
                 .set(data);
 
+        // List for upvoted user ids
+        Map<String, Object> upvotedUserIds = new HashMap<>();
+        upvotedUserIds.put("upvotedUserids", Arrays.asList(""));
+        mDb.collection(MODULES)
+                .document(s)
+                .collection("thread")
+                .document(id)
+                .set(upvotedUserIds, SetOptions.merge());
+
+        // Upvote count
+        Map<String, Integer> upvotes = new HashMap<>();
+        upvotes.put("upvotes", 0);
+        mDb.collection(MODULES)
+                .document(s)
+                .collection("thread")
+                .document(id)
+                .set(upvotes, SetOptions.merge());
 
         Map<String, String> data2 = new HashMap<>();
         data2.put("userName",u);

@@ -14,7 +14,7 @@ import java.util.List;
 public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     private RecyclerViewClickListener listener;
     private List<ModelClass> userlist;
-    public Adapter(List<ModelClass>userlist,RecyclerViewClickListener listener)
+    public Adapter(List<ModelClass> userlist,RecyclerViewClickListener listener)
     {
         this.userlist=userlist;
         this.listener=listener;
@@ -55,10 +55,10 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageView=itemView.findViewById(R.id.imageView1);
-            textView=itemView.findViewById(R.id.textView);
-            textView2=itemView.findViewById(R.id.textView2);
-            textView3=itemView.findViewById(R.id.textView3);
+            imageView=itemView.findViewById(R.id.pfpIcon);
+            textView=itemView.findViewById(R.id.usernameText);
+            textView2=itemView.findViewById(R.id.documentId);
+            textView3=itemView.findViewById(R.id.contentText);
             itemView.setOnClickListener(this);
 
 

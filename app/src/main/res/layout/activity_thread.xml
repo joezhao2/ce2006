@@ -48,7 +48,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textView4"
+                    android:id="@+id/courseIdText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="3dp"
@@ -65,7 +65,7 @@
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/textView6"
+                    android:id="@+id/courseNameText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
@@ -128,14 +128,14 @@
                                         android:orientation="vertical">
 
                                         <ImageView
-                                            android:id="@+id/imageView8"
+                                            android:id="@+id/upvoteOnIcon"
                                             android:layout_width="20dp"
                                             android:layout_height="18dp"
                                             android:layout_gravity="center_horizontal"
                                             app:srcCompat="@drawable/arrow_up" />
 
                                         <TextView
-                                            android:id="@+id/textView13"
+                                            android:id="@+id/upvoteCountText"
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:layout_marginTop="-6dp"
@@ -197,14 +197,14 @@
                             android:orientation="horizontal">
 
                             <ImageView
-                                android:id="@+id/imageView1"
+                                android:id="@+id/pfpIcon"
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
                                 android:layout_weight="1"
                                 app:srcCompat="@drawable/default_profile_pic" />
 
                             <TextView
-                                android:id="@+id/textView"
+                                android:id="@+id/usernameText"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="6dp"
@@ -212,7 +212,7 @@
                         </LinearLayout>
 
                         <TextView
-                            android:id="@+id/threadtitle"
+                            android:id="@+id/threadTitle"
                             android:layout_width="320dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
@@ -228,7 +228,7 @@
                             android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur a est eu neque imperdiet suscipit. Aenean imperdiet sagittis fringilla. Aliquam eu felis fermentum, lacinia nulla a, tempor lectus. Aliquam at malesuada libero. Nulla ac nisi lorem. Nam eu risus id lorem sodales molestie dapibus eu diam. Fusce ultricies libero vitae ligula faucibus faucibus.  Phasellus pharetra rhoncus augue, eget dictum enim eleifend nec. Nullam dui nulla, varius ut nulla eu, venenatis accumsan odio. Sed dolor purus, dignissim non nibh a, tincidunt elementum quam. Integer vulputate porttitor laoreet. Donec cursus quam at porta pellentesque. Phasellus nec orci risus. Cras at nulla nec diam mollis auctor quis vitae dolor. Proin eget arcu eros. Sed pellentesque velit sit amet fringilla eleifend. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;  Cras in vestibulum tortor. Curabitur tempus accumsan sem vel congue. Sed odio orci, rutrum a placerat non, luctus non nisi. Quisque mattis sapien at libero aliquam, in lacinia enim mollis. Suspendisse quis sapien sit amet arcu mattis blandit vitae non lacus. Nullam interdum ex felis, quis pharetra ipsum ultricies nec. Aliquam a sollicitudin nulla. Donec sodales nisi vitae accumsan convallis. Pellentesque odio nunc, elementum eget elit vel, congue auctor velit. Nullam auctor eleifend enim, quis accumsan purus. Morbi ligula elit, aliquam eu aliquet et, aliquam ut sem. Quisque tempor, dolor sed euismod molestie, tortor augue malesuada sem, hendrerit suscipit ipsum massa a dui. Sed non nibh nunc. Quisque quis viverra nisl. Nullam ut ante sed ante interdum malesuada sed tristique libero." />
 
                         <TextView
-                            android:id="@+id/textView2"
+                            android:id="@+id/documentId"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_alignParentBottom="true"
@@ -238,11 +238,19 @@
 
                 </LinearLayout>
 
-                <ListView
-                    android:id="@+id/commentlist"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="1178dp"
-                    android:layout_below="@id/threadtitle" />
+                    android:layout_height="2dp"
+                    android:layout_marginTop="-1dp"
+                    android:background="#bdc3c7"
+                    android:orientation="horizontal">
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/commentList"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
 
             </LinearLayout>
         </ScrollView>
@@ -250,7 +258,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:orientation="horizontal"></LinearLayout>
+            android:orientation="horizontal"/>
 
     </LinearLayout>
 
