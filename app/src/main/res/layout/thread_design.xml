@@ -157,7 +157,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:gravity="center_vertical"
-                    android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dignissim ornare metus vitae interdum." />
+                    android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
+                    android:textColor="#2C3E50"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/documentId"
