@@ -208,7 +208,8 @@ public class SettingActivity extends AppCompatActivity {
                 switch (item.getItemId())
                 {
                     case R.id.search:
-                        startActivity(new Intent(SettingActivity.this, FirestoreListActivity.class));
+                        Intent modIntent = new Intent(SettingActivity.this, FirestoreListActivity.class);
+                        startActivity(modIntent);
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.home:

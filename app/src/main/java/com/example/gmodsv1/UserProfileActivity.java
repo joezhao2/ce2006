@@ -27,7 +27,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
     private TextView textViewWelcome , textViewFullName , textViewEmail , textViewDoB , textViewGender , textViewMobile;
     private ProgressBar progressBar;
-    private String fullName , email , doB , gender , mobile;
+    private String fullName , email , doB , gender , mobile, userid;
     private ImageView imageView;
     private FirebaseAuth authProfile;
 
@@ -75,13 +75,11 @@ public class UserProfileActivity extends AppCompatActivity {
                 {
                     case R.id.search:
                         Intent modIntent = new Intent(UserProfileActivity.this, FirestoreListActivity.class);
-                        modIntent.putExtra("fullname", fullName);
                         startActivity(modIntent);
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.settings:
                         Intent settingsIntent = new Intent(UserProfileActivity.this, SettingActivity.class);
-                        settingsIntent.putExtra("fullname", fullName);
                         startActivity(settingsIntent);
                         overridePendingTransition(0,0);
                         return true;
@@ -107,7 +105,7 @@ public class UserProfileActivity extends AppCompatActivity {
                     doB = readUserDetails.doB;
                     gender = readUserDetails.gender;
                     mobile = readUserDetails.mobile;
-
+                    userid = firebaseUser.getUid();
                     //textViewWelcome.setText("Welcome " + "!");
                     textViewFullName.setText(fullName);
                     textViewEmail.setText(email);

@@ -7,14 +7,16 @@ public class CommentModelClass {
     private String documentId;
     private Integer upvoteCount;
     private boolean upvoted;
+    private String timeStr;
 
-    CommentModelClass(int pfpIcon, String usernameText, String contentText, String documentId, int upvoteCount, boolean upvoted){
+    CommentModelClass(int pfpIcon, String usernameText, String contentText, String documentId, int upvoteCount, boolean upvoted, String timeStr){
         this.pfpIcon=pfpIcon;
         this.usernameText=usernameText;
         this.contentText=contentText;
         this.documentId=documentId;
         this.upvoteCount=upvoteCount;
         this.upvoted=upvoted;
+        this.timeStr=timeStr;
     }
 
     public int getPfpIcon() {
@@ -40,4 +42,6 @@ public class CommentModelClass {
     public Boolean getUpvoted() {
         return upvoted;
     }
+
+    public String getTimeStr() { return timeStr; }
 }

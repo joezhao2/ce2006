@@ -13,10 +13,10 @@ import java.util.List;
 
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHolder> {
     private RecyclerViewClickListener listener;
-    private List<CommentModelClass> userlist;
+    private List<CommentModelClass> commentlist;
     public CommentAdapter(List<CommentModelClass>userlist, RecyclerViewClickListener listener)
     {
-        this.userlist=userlist;
+        this.commentlist =userlist;
         this.listener=listener;
     }
     @NonNull
@@ -28,21 +28,27 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull CommentAdapter.ViewHolder holder, int position) {
-        int imageId =userlist.get(position).getPfpIcon();
-        String username=userlist.get(position).getUsernameText();
-        String id=userlist.get(position).getDocumentId();
-        String content=userlist.get(position).getContentText();
+        int imageId = commentlist.get(position).getPfpIcon();
+        String username= commentlist.get(position).getUsernameText();
+        String id= commentlist.get(position).getDocumentId();
+        String content= commentlist.get(position).getContentText();
 
-        Integer upvoteCount=userlist.get(position).getUpvoteCount();
-        Boolean upvoted=userlist.get(position).getUpvoted();
-        holder.setData(imageId, username, id, content, upvoteCount, upvoted);
+        Integer upvoteCount= commentlist.get(position).getUpvoteCount();
+        Boolean upvoted= commentlist.get(position).getUpvoted();
+        String timeStr= commentlist.get(position).getTimeStr();
+        holder.setData(imageId, username, id, content, upvoteCount, upvoted, timeStr);
 
     }
 
     @Override
     public int getItemCount() {
-        return userlist.size();
+        return commentlist.size();
     }
+
+    public void clear() {
+        commentlist.clear();
+    }
+
     public interface RecyclerViewClickListener{
         void onClick(View v,int position);
     }
@@ -58,6 +64,8 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         private ImageView upvoteOnIcon;
         private TextView upvoteCountText;
 
+        private TextView timeDeltaText;
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -69,12 +77,13 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             upvoteOffIcon=itemView.findViewById((R.id.upvoteOffIcon));
             upvoteOnIcon=itemView.findViewById((R.id.upvoteOnIcon));
             upvoteCountText=itemView.findViewById((R.id.upvoteCountText));
+            timeDeltaText=itemView.findViewById((R.id.timeDeltaText));
             itemView.setOnClickListener(this);
 
 
         }
 
-        public void setData(int imageId, String username, String id, String content, Integer upvoteCount, Boolean upvoted) {
+        public void setData(int imageId, String username, String id, String content, Integer upvoteCount, Boolean upvoted, String timeStr) {
             pfpIcon.setImageResource(imageId);
             usernameText.setText(username);
             contentText.setText(content);
@@ -89,6 +98,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                 upvoteOnIcon.setVisibility(View.GONE);
             }
             upvoteCountText.setText(upvoteCount.toString());
+            timeDeltaText.setText(timeStr);
         }
         @Override
         public void onClick(View view) {

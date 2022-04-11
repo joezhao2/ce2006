@@ -97,7 +97,7 @@ public class listviewonclick2 extends AppCompatActivity {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 if (document.exists()) {
                                     String title = document.get("message").toString();
-                                    String user = document.get("userName").toString();
+                                    String user = document.get("username").toString();
                                     //Do what you need to do with your ArrayList
 //                                    ArrayList<String> arrayListcomments = (ArrayList<String>) document.get("comments");
 //                                    for (String s : arrayListcomments) {

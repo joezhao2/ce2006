@@ -9,12 +9,30 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="5dp"
+        android:layout_height="match_parent"
         android:layout_marginTop="-1dp"
         android:background="#2c3e50"
         android:orientation="horizontal">
 
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_marginTop="-1dp"
+        android:background="#2c3e50"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="-1dp"
+            android:background="#2c3e50"
+            android:orientation="horizontal">
+
+        </LinearLayout>
+    </LinearLayout>
+
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -85,7 +103,7 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="615dp">
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -250,27 +268,33 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/commentList"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:background="#FFFFFF" >
+
+                </androidx.recyclerview.widget.RecyclerView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:background="#FFFFFF"
+                    android:orientation="horizontal">
+
+                </LinearLayout>
 
             </LinearLayout>
         </ScrollView>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:orientation="horizontal"/>
-
     </LinearLayout>
-
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:background="#FFFFFF"
         android:orientation="horizontal">
 
         <EditText
-            android:id="@+id/commentadd"
+            android:id="@+id/commentBox"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
@@ -288,7 +312,7 @@
             android:textSize="20sp" />
 
         <Button
-            android:id="@+id/subitcomment"
+            android:id="@+id/submitCommentButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
