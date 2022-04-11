@@ -25,6 +25,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -58,6 +59,7 @@ public class ThreadActivity extends AppCompatActivity {
                             if (document.exists()) {
                                 try {
                                     commentArrayList = (ArrayList<HashMap<String, String>>) document.get("comments");
+                                    Collections.reverse(commentArrayList);
                                     for (HashMap<String, String> commentObj: commentArrayList) {
                                         String username = commentObj.get("username");
                                         String userId = commentObj.get("userId");
