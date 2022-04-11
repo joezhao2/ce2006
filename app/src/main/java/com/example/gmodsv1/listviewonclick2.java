@@ -45,7 +45,9 @@ public class listviewonclick2 extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        adapter.clear();
         updateThreadList();
+        Log.d("uh", "resumed");
     }
 
     String courseId;
@@ -76,8 +78,6 @@ public class listviewonclick2 extends AppCompatActivity {
                                     } catch (Exception e) {
                                         e.printStackTrace();
                                     }
-
-
                                 }
                             }
                         }
@@ -110,7 +110,7 @@ public class listviewonclick2 extends AppCompatActivity {
                         }
                     }
                 });
-        updateThreadList();
+
     }
 
     private void initRecyclerView(String s) {

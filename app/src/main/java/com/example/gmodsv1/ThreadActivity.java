@@ -520,6 +520,7 @@ public class ThreadActivity extends AppCompatActivity {
                                 String struserid=document.get("userid").toString();
                                 Log.d("checkinguidforcomment",struserid) ;
                                 Log.d("checkinguidforcomment2",fbuserid) ;
+                                ArrayList<HashMap<String, String>> commentArrayList = (ArrayList<HashMap<String, String>>) document.get("comments");
                                 if(struserid.equals(fbuserid)) {
                                     new AlertDialog.Builder(viewHolder.itemView.getContext())
                                             .setMessage("Deleting comment, are you sure?")
@@ -528,14 +529,24 @@ public class ThreadActivity extends AppCompatActivity {
                                                 public void onClick(DialogInterface dialogInterface, int i) {
                                                     //Log.d("course123", userList.get(viewHolder.getAdapterPosition()).getTextview2().substring(0, 6));
                                                     //Log.d("course123", userList.get(viewHolder.getAdapterPosition()).getTextview2().substring(6, 26));
+
+                                                    //hi brook this is the part to remove the comment
+                                                    //ok, sure
                                                     mDb.collection(MODULES)
                                                             .document(courseId)
                                                             .collection("thread")
                                                             .document(documentId)
-                                                            .get();
-                                                    //hi brook this is the part to remove the comment
-                                                    commentList.remove(viewHolder.getAdapterPosition());//get position of the thread obj to remove
-                                                    adapter.notifyDataSetChanged();
+                                                            .update("comments", FieldValue.arrayRemove(commentArrayList.get(viewHolder.getAdapterPosition())))
+                                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                @Override
+                                                                public void onComplete(@NonNull Task<Void> task) {
+                                                                    commentList.remove(viewHolder.getAdapterPosition());//get position of the thread obj to remove
+                                                                    updateThreadDisplay();
+                                                                    updateCommentDisplay();
+                                                                }
+                                                            });
+                                                    Log.d("id", Integer.toString(viewHolder.getAdapterPosition()));
+
 
 
                                                 }

@@ -46,6 +46,11 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     public int getItemCount() {
         return userlist.size();
     }
+
+    public void clear() {
+        userlist.clear();
+    }
+
     public interface RecyclerViewClickListener{
         void onClick(View v,int position);
     }
