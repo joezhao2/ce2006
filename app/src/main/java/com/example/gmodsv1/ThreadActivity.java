@@ -463,7 +463,7 @@ public class ThreadActivity extends AppCompatActivity {
         adapter.clear();
         updateCommentDisplay();
         updateThreadDisplay();
-
+        commentEditText.getText().clear();
 
 //        mDb.collection(MODULES)
 //                .document(courseId)
