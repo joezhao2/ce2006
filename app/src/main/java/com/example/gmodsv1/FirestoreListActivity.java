@@ -10,6 +10,7 @@ import android.util.Log;
 import android.util.Pair;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -75,6 +76,8 @@ public class FirestoreListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_firestore_list);
         getSupportActionBar().hide();
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView_search);
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
 
         //set home selected
         bottomNavigationView.setSelectedItemId(R.id.search);
