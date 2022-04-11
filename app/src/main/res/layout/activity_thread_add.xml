@@ -35,7 +35,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/threadadd2"
-        android:hint="Input username"
+        android:hint="Thread body text"
         android:textColor="@color/black"
         android:textColorHint="@color/grey"
         android:inputType="text"

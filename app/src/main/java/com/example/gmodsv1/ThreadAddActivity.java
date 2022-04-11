@@ -42,7 +42,7 @@ public class ThreadAddActivity extends AppCompatActivity {
     public void onSubmitClickThread2(View view){
         EditText user=findViewById(R.id.useradd2);
         EditText thread=findViewById(R.id.threadadd2);
-        String u=user.getText().toString();
+        String b=user.getText().toString();
         String t=thread.getText().toString();
         Intent intent = getIntent();
         String s = intent.getStringExtra("course");
@@ -76,9 +76,10 @@ public class ThreadAddActivity extends AppCompatActivity {
                 .set(upvotes, SetOptions.merge());
 
         Map<String, String> data2 = new HashMap<>();
-        data2.put("userName",u);
+        data2.put("userName",fbuser.getDisplayName());
         data2.put("message",t);
         data2.put("userid",fbuser.getUid());
+        data2.put("body",b);
         mDb.collection(MODULES)
                 .document(s)
                 .collection("thread")

@@ -192,9 +192,10 @@ public class FirestoreListActivity extends AppCompatActivity {
                             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                                 if(true){
                                     //startActivity(new Intent(FirestoreListActivity.this, listviewonclick2.class));
+                                    Log.d("whatisthis",(String)adapterView.getItemAtPosition(i).toString().substring(0,6));
                                     Intent intent = new Intent(FirestoreListActivity.this,listviewonclick2.class);
-                                    intent.putExtra("course",s.toString().toUpperCase());
-                                    intent.putExtra("fullname", getIntent().getExtras().getString("fullname"));
+                                    intent.putExtra("course",(String)adapterView.getItemAtPosition(i).toString().substring(0,6) );//s.toString().toUpperCase()
+                                    //intent.putExtra("fullname", getIntent().getExtras().getString("fullname"));
                                     startActivity(intent);
 
                                 }
@@ -252,7 +253,7 @@ public class FirestoreListActivity extends AppCompatActivity {
                                         if(true){
                                             //startActivity(new Intent(FirestoreListActivity.this, listviewonclick2.class));
                                             Intent intent = new Intent(FirestoreListActivity.this,listviewonclick2.class);
-                                            intent.putExtra("course",editable.toString().toUpperCase());
+                                            intent.putExtra("course",(String)adapterView.getItemAtPosition(i).toString().substring(0,6));
                                             startActivity(intent);
 
                                         }
