@@ -78,9 +78,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             upvoteOnIcon=itemView.findViewById((R.id.upvoteOnIcon));
             upvoteCountText=itemView.findViewById((R.id.upvoteCountText));
             timeDeltaText=itemView.findViewById((R.id.timeDeltaText));
-            itemView.setOnClickListener(this);
-
-
         }
 
         public void setData(int imageId, String username, String id, String content, Integer upvoteCount, Boolean upvoted, String timeStr) {
