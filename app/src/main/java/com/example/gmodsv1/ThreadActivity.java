@@ -359,6 +359,7 @@ public class ThreadActivity extends AppCompatActivity {
         RecyclerView commentlistview = findViewById(R.id.commentList);
         adapter.clear();
         updateCommentDisplay(courseId, documentId);
+        updateThreadDisplay(courseId, documentId);
 
 //        mDb.collection(MODULES)
 //                .document(courseId)

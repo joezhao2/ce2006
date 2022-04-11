@@ -263,7 +263,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:gravity="center_vertical"
-                            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dignissim ornare metus vitae interdum."
+                            android:text="Integer tristique ut diam ac interdum."
                             android:textColor="#2C3E50"
                             android:textSize="16sp" />
 
@@ -271,7 +271,7 @@
                             android:id="@+id/timeText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="11/4/2020"
+                            android:text="11/4/2000"
                             android:textColor="#B6B6B6" />
 
                         <TextView
@@ -279,7 +279,7 @@
                             android:layout_width="320dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur a est eu neque imperdiet suscipit. Aenean imperdiet sagittis fringilla. Aliquam eu felis fermentum, lacinia nulla a, tempor lectus. Aliquam at malesuada libero. Nulla ac nisi lorem. Nam eu risus id lorem sodales molestie dapibus eu diam. Fusce ultricies libero vitae ligula faucibus faucibus.  Phasellus pharetra rhoncus augue, eget dictum enim eleifend nec. Nullam dui nulla, varius ut nulla eu, venenatis accumsan odio. Sed dolor purus, dignissim non nibh a, tincidunt elementum quam. Integer vulputate porttitor laoreet. Donec cursus quam at porta pellentesque. Phasellus nec orci risus. Cras at nulla nec diam mollis auctor quis vitae dolor. Proin eget arcu eros. Sed pellentesque velit sit amet fringilla eleifend. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;  Cras in vestibulum tortor. Curabitur tempus accumsan sem vel congue. Sed odio orci, rutrum a placerat non, luctus non nisi. Quisque mattis sapien at libero aliquam, in lacinia enim mollis. Suspendisse quis sapien sit amet arcu mattis blandit vitae non lacus. Nullam interdum ex felis, quis pharetra ipsum ultricies nec. Aliquam a sollicitudin nulla. Donec sodales nisi vitae accumsan convallis. Pellentesque odio nunc, elementum eget elit vel, congue auctor velit. Nullam auctor eleifend enim, quis accumsan purus. Morbi ligula elit, aliquam eu aliquet et, aliquam ut sem. Quisque tempor, dolor sed euismod molestie, tortor augue malesuada sem, hendrerit suscipit ipsum massa a dui. Sed non nibh nunc. Quisque quis viverra nisl. Nullam ut ante sed ante interdum malesuada sed tristique libero." />
+                            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. " />
 
                         <TextView
                             android:id="@+id/documentId"
