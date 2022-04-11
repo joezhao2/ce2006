@@ -7,7 +7,7 @@ import androidx.annotation.RequiresApi;
 import java.time.Instant;
 import java.util.Date;
 
-public class DateTimeFormatter {
+public class TimeFormatter {
     @RequiresApi(api = Build.VERSION_CODES.O)
     public static String getStringTimeDelta(Instant timeInstant1, Instant timeInstant2) {
         Date time1 = Date.from(timeInstant1.from(timeInstant1));

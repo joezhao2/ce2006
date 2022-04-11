@@ -33,7 +33,12 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         String msg=userlist.get(position).getTextview3();
         String comment=userlist.get(position).getTextview2();
 
-        holder.setData(resource,name,msg,comment);
+        String upvoteCount=userlist.get(position).getUpvoteCount();
+        String replyCount=userlist.get(position).getReplyCount();
+
+        String timeDelta=userlist.get(position).getTimeDelta();
+
+        holder.setData(resource,name,msg,comment,upvoteCount,replyCount, timeDelta);
 
     }
 
@@ -52,6 +57,14 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         private TextView textView2;
         private TextView textView3;
 
+        private TextView upvoteCountText;
+        private TextView upvoteDisplayText;
+
+        private TextView replyCountText;
+        private TextView replyDisplayText;
+
+        private TextView timeDeltaText;
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -59,16 +72,42 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             textView=itemView.findViewById(R.id.usernameText);
             textView2=itemView.findViewById(R.id.documentId);
             textView3=itemView.findViewById(R.id.contentText);
+
+            upvoteCountText=itemView.findViewById(R.id.upvoteCountText);
+            upvoteDisplayText=itemView.findViewById(R.id.upvoteDisplayText);
+
+            replyCountText=itemView.findViewById(R.id.replyCountText);
+            replyDisplayText=itemView.findViewById(R.id.replyDisplayText);
+
+            timeDeltaText=itemView.findViewById(R.id.timeDeltaThreadListText);
+
             itemView.setOnClickListener(this);
 
 
         }
 
-        public void setData(int resource, String name, String msg, String comment) {
+        public void setData(int resource, String name, String msg, String comment, String upvoteCount, String replyCount, String timeDelta) {
             imageView.setImageResource(resource);
             textView.setText(name);
             textView3.setText(msg);
             textView2.setText(comment);
+
+            upvoteCountText.setText(upvoteCount);
+            if(upvoteCount.equals("1")) {
+                upvoteDisplayText.setText("Upvote");
+            }
+            else {
+                upvoteDisplayText.setText("Upvotes");
+            }
+
+            replyCountText.setText(replyCount);
+            if(replyCount.equals("1")) {
+                replyDisplayText.setText("Reply");
+            }
+            else {
+                replyDisplayText.setText("Replies");
+            }
+            timeDeltaText.setText(timeDelta);
         }
         @Override
         public void onClick(View view) {

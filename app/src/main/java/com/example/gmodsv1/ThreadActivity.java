@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ListView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -23,7 +23,13 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import org.w3c.dom.Text;
+
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -62,7 +68,7 @@ public class ThreadActivity extends AppCompatActivity {
                                     Collections.reverse(commentArrayList);
                                     for (HashMap<String, String> commentObj: commentArrayList) {
                                         String username = commentObj.get("username");
-                                        String userId = commentObj.get("userId");
+                                        String userId = commentObj.get("userid");
                                         String content = commentObj.get("content");
                                         String upvoteCount = commentObj.get("upvoteCount");
                                         String time = commentObj.get("time");
@@ -73,11 +79,86 @@ public class ThreadActivity extends AppCompatActivity {
                                                 courseId+document.getId(),
                                                 0,
                                                 true,
-                                                DateTimeFormatter.getStringTimeDelta(Instant.parse(time), Instant.now()));
+                                                TimeFormatter.getStringTimeDelta(Instant.parse(time), Instant.now()));
                                         commentList.add(tmpCommentObj);
                                         initRecyclerView(courseId+document.getId());
 
                                     }
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                    }
+                });
+    }
+
+    private void updateThreadDisplay(String courseId, String documentId) {
+        mDb.collection(MODULES)
+                .document(courseId)
+                .collection("thread")
+                .document(documentId)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @RequiresApi(api = Build.VERSION_CODES.O)
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document.exists()) {
+                                try {
+                                        String username = document.get("username").toString();
+                                        String title = document.get("title").toString();
+                                        String body = document.get("body").toString();
+
+                                        Instant time = Instant.parse(document.get("time").toString());
+                                        LocalDateTime localDateTime = LocalDateTime.ofInstant(time, ZoneOffset.UTC);
+                                        String timeDelta = TimeFormatter.getStringTimeDelta(time, Instant.now());
+                                        String timeString = "on " + localDateTime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+
+                                        String upvoteCount = document.get("upvotes").toString();
+
+                                        ArrayList<HashMap<String, String>> commentArrayList = (ArrayList<HashMap<String, String>>) document.get("comments");
+                                        String replyCount = Integer.toString(commentArrayList.size() - 1);
+
+                                        TextView usernameText = findViewById(R.id.usernameText);
+                                        TextView titleText = findViewById(R.id.threadTitle);
+                                        TextView bodyText = findViewById(R.id.bodyText);
+
+                                        TextView timeDeltaThreadText = findViewById(R.id.timeDeltaThreadText);
+                                        TextView timeText = findViewById(R.id.timeText);
+
+                                        ImageView upvoteOnIcon = findViewById(R.id.upvoteOnIcon);
+                                        ImageView upvoteOffIcon = findViewById(R.id.upvoteOffIcon);
+                                        TextView upvoteCountText = findViewById(R.id.upvoteCountText);
+
+                                        TextView replyCountText = findViewById(R.id.replyCountText);
+                                        TextView replyDisplayText = findViewById(R.id.replyDisplayText);
+
+                                        usernameText.setText(username);
+                                        titleText.setText(title);
+                                        bodyText.setText(body);
+
+                                        timeDeltaThreadText.setText(timeDelta);
+                                        timeText.setText(timeString);
+
+                                        // To be done: code upvote function
+                                        upvoteOnIcon.setVisibility(View.GONE);
+                                        upvoteOffIcon.setVisibility(View.VISIBLE);
+                                        upvoteCountText.setText(upvoteCount);
+
+                                        replyCountText.setText(replyCount);
+                                        if (replyCount.equals("1")) {
+                                            replyDisplayText.setText("Reply");
+                                        }
+                                        else {
+                                            replyDisplayText.setText("Replies");
+                                        }
+
+
+
+
+
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
@@ -105,33 +186,21 @@ public class ThreadActivity extends AppCompatActivity {
                     }
                 });
     }
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thread);
         getSupportActionBar().hide();
 
-//        ListView commentlistview = findViewById(R.id.commentlist);
-//        adapter = new ArrayAdapter<String>(
-//                ThreadActivity.this,//activity is this
-//                android.R.layout.simple_list_item_1,//how it list(text view, display and module.toString
-//                //if toString() method not defined in class, it will show class fullname@hex addr
-//                new ArrayList<String>()
-//        );
-
         initData();
         initRecyclerView("text");
         Intent intent = getIntent();
-        String threadTitle = intent.getStringExtra("threadtitle");
         String courseId = intent.getStringExtra("course").substring(0, 6);    // s
         String documentId = intent.getStringExtra("course").substring(6, 26);   // s1
-        TextView threadTitleText = findViewById(R.id.threadTitle);
-        //TextView threadtitle2 =findViewById(R.id.mainview);
-        threadTitleText.setText(threadTitle);
-        //threadtitle2.setText(s);
+
         Log.d("coursename", courseId);
         Log.d("documentId", documentId);
 
+        updateThreadDisplay(courseId, documentId);
         updateCommentDisplay(courseId, documentId);
 
 //        mDb.collection(MODULES)

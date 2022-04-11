@@ -2,45 +2,31 @@ package com.example.gmodsv1;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
-import android.sax.StartElementListener;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.firestore.SetOptions;
 
+import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -91,22 +77,27 @@ public class listviewonclick2 extends AppCompatActivity {
                 .collection("thread")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @RequiresApi(api = Build.VERSION_CODES.O)
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 if (document.exists()) {
-                                    String title = document.get("message").toString();
-                                    String user = document.get("username").toString();
-                                    //Do what you need to do with your ArrayList
-//                                    ArrayList<String> arrayListcomments = (ArrayList<String>) document.get("comments");
-//                                    for (String s : arrayListcomments) {
-//                                        Log.d("comments", s);
-//                                    }
-                                    ModelClass m= new ModelClass(R.drawable.photo6208635785310221009,user, s+document.getId(), title);
-                                    userList.add(m);
-                                    initRecyclerView(s+document.getId());
-                                    Log.d("name+id",s+document.getId());
+                                    try {
+                                        String title = document.get("title").toString();
+                                        String user = document.get("username").toString();
+                                        String timeStr = TimeFormatter.getStringTimeDelta(Instant.parse(document.get("time").toString()), Instant.now());
+                                        String upvotes = document.get("upvotes").toString();
+                                        ArrayList<HashMap<String, String>> commentArrayList = (ArrayList<HashMap<String, String>>) document.get("comments");
+                                        String replies = Integer.toString(commentArrayList.size() - 1);
+
+                                        ModelClass m= new ModelClass(R.drawable.photo6208635785310221009,user, s+document.getId(), title, upvotes, replies, timeStr);
+                                        userList.add(m);
+                                        initRecyclerView(s+document.getId());
+                                        Log.d("name+id",s+document.getId());
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
 
 
                                 }

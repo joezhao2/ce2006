@@ -108,6 +108,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="#FFFFFF"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -150,7 +151,15 @@
                                             android:layout_width="20dp"
                                             android:layout_height="18dp"
                                             android:layout_gravity="center_horizontal"
+                                            android:visibility="gone"
                                             app:srcCompat="@drawable/arrow_up" />
+
+                                        <ImageView
+                                            android:id="@+id/upvoteOffIcon"
+                                            android:layout_width="20dp"
+                                            android:layout_height="18dp"
+                                            android:layout_gravity="center_horizontal"
+                                            app:srcCompat="@drawable/arrow_up_off" />
 
                                         <TextView
                                             android:id="@+id/upvoteCountText"
@@ -227,6 +236,25 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="6dp"
                                 android:text="username" />
+
+                            <LinearLayout
+                                android:layout_width="1dp"
+                                android:layout_height="15dp"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginRight="5dp"
+                                android:layout_weight="1"
+                                android:background="#bdc3c7"
+                                android:orientation="horizontal">
+
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/timeDeltaThreadText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Posted 5 seconds ago" />
                         </LinearLayout>
 
                         <TextView
@@ -236,10 +264,18 @@
                             android:layout_gravity="center_vertical"
                             android:gravity="center_vertical"
                             android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dignissim ornare metus vitae interdum."
-                            android:textColor="#2C3E50" />
+                            android:textColor="#2C3E50"
+                            android:textSize="16sp" />
 
                         <TextView
-                            android:id="@+id/textView8"
+                            android:id="@+id/timeText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="11/4/2020"
+                            android:textColor="#B6B6B6" />
+
+                        <TextView
+                            android:id="@+id/bodyText"
                             android:layout_width="320dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
@@ -265,17 +301,29 @@
 
                 </LinearLayout>
 
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginBottom="7dp"
+                    android:layout_weight="1"
+                    android:text="Replies"
+                    android:textColor="#2C3E50"
+                    android:textSize="16sp" />
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/commentList"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="#FFFFFF" >
+                    android:background="#FFFFFF">
 
                 </androidx.recyclerview.widget.RecyclerView>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="80dp"
+                    android:layout_height="600dp"
                     android:background="#FFFFFF"
                     android:orientation="horizontal">
 

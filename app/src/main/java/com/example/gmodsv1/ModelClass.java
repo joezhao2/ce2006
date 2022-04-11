@@ -6,11 +6,19 @@ public class ModelClass {
     private String textview2;
     private String textview3;
 
-    ModelClass(int imageview1,String textview1,String textview2,String textview3){
+    private String upvoteCount;
+    private String replyCount;
+
+    private String timeDelta;
+
+    ModelClass(int imageview1,String textview1,String textview2,String textview3,String upvoteCount,String replyCount,String timeDelta){
         this.imageview1=imageview1;
         this.textview1=textview1;
         this.textview2=textview2;
         this.textview3=textview3;
+        this.upvoteCount=upvoteCount;
+        this.replyCount=replyCount;
+        this.timeDelta=timeDelta;
     }
 
     public int getImageview1() {
@@ -28,4 +36,10 @@ public class ModelClass {
     public String getTextview3() {
         return textview3;
     }
+
+    public String getUpvoteCount() { return upvoteCount; }
+
+    public String getReplyCount() { return replyCount; }
+
+    public String getTimeDelta() { return timeDelta; }
 }

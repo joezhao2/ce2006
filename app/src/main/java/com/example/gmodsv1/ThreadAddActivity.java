@@ -1,10 +1,12 @@
 package com.example.gmodsv1;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,6 +17,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 
+import java.time.Instant;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -39,6 +42,7 @@ public class ThreadAddActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String s = intent.getStringExtra("course");
     }
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void onSubmitClickThread2(View view){
         EditText user=findViewById(R.id.useradd2);
         EditText thread=findViewById(R.id.threadadd2);
@@ -67,8 +71,8 @@ public class ThreadAddActivity extends AppCompatActivity {
                 .set(upvotedUserIds, SetOptions.merge());
 
         // Upvote count
-        Map<String, Integer> upvotes = new HashMap<>();
-        upvotes.put("upvotes", 0);
+        Map<String, String> upvotes = new HashMap<>();
+        upvotes.put("upvotes", "0");
         mDb.collection(MODULES)
                 .document(s)
                 .collection("thread")
@@ -76,10 +80,11 @@ public class ThreadAddActivity extends AppCompatActivity {
                 .set(upvotes, SetOptions.merge());
 
         Map<String, String> data2 = new HashMap<>();
-        data2.put("userName",fbuser.getDisplayName());
-        data2.put("message",t);
+        data2.put("username",fbuser.getDisplayName());
+        data2.put("title",t);
         data2.put("userid",fbuser.getUid());
         data2.put("body",b);
+        data2.put("time", Instant.now().toString());
         mDb.collection(MODULES)
                 .document(s)
                 .collection("thread")
