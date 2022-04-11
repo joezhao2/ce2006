@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -59,6 +60,7 @@ public class ThreadActivity extends AppCompatActivity {
     String courseId, documentId;
 
     private void updateCommentDisplay() {
+        adapter.clear();
         mDb.collection(MODULES)
                 .document(courseId)
                 .collection("thread")
@@ -70,6 +72,7 @@ public class ThreadActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if (task.isSuccessful()) {
                             ArrayList<HashMap<String, String>> commentArrayList = new ArrayList<>();
+                            boolean haveComments = false;
                             DocumentSnapshot document = task.getResult();
                             if (document.exists()) {
                                 try {
@@ -91,11 +94,19 @@ public class ThreadActivity extends AppCompatActivity {
                                                 TimeFormatter.getStringTimeDelta(Instant.parse(time), Instant.now()));
                                         commentList.add(tmpCommentObj);
                                         initRecyclerView(courseId+document.getId());
-
+                                        haveComments = true;
                                     }
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
+                            }
+                            if(haveComments) {
+                                CardView noCommentDisplay = findViewById(R.id.noReplyDisplay);
+                                noCommentDisplay.setVisibility(View.GONE);
+                            }
+                            else {
+                                CardView noCommentDisplay = findViewById(R.id.noReplyDisplay);
+                                noCommentDisplay.setVisibility(View.VISIBLE);
                             }
                         }
                     }

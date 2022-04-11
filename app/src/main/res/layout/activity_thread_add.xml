@@ -6,56 +6,80 @@
     android:layout_height="match_parent"
     tools:context=".ThreadAddActivity"
     android:background="#A7C7E7">
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/header"
-        android:text="ADD A NEW THREAD"
-        app:layout_constraintTop_toTopOf="parent"
-        android:gravity="center_horizontal"
-        android:textSize="35dp"
-        />
-    <EditText
-        android:id="@+id/threadadd2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/header"
-        android:hint="Add thread"
-        android:textColor="@color/black"
-        android:textColorHint="@color/grey"
-        android:inputType="text"
-        android:selectAllOnFocus="true"
-        android:layout_margin="5dp"
-        android:padding="20dp"
-        android:background="#ffffff"
-        android:drawablePadding="20dp"
-        android:textSize="18sp" />
-    <EditText
-        android:id="@+id/useradd2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/threadadd2"
-        android:hint="Thread body text"
-        android:textColor="@color/black"
-        android:textColorHint="@color/grey"
-        android:inputType="text"
-        android:selectAllOnFocus="true"
-        android:layout_margin="5dp"
-        android:padding="20dp"
-        android:background="#ffffff"
-        android:drawablePadding="20dp"
-        android:textSize="18sp" />
 
-    <Button
-        android:id="@+id/submitCommentButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="#FFD700"
-        android:onClick="onSubmitClickThread2"
-        android:text="Submit"
-        app:layout_constraintTop_toBottomOf="@id/useradd2"/>
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:layout_marginTop="-50dp"
+            app:srcCompat="@drawable/header_bg" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_marginTop="-1dp"
+            android:background="#2c3e50"
+            android:orientation="horizontal">
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:text="Add a new Thread"
+            android:textSize="35dp" />
+
+        <EditText
+            android:id="@+id/threadadd2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="#ffffff"
+            android:drawablePadding="20dp"
+            android:hint="Add thread"
+            android:inputType="text"
+            android:padding="20dp"
+            android:selectAllOnFocus="true"
+            android:textColor="@color/black"
+            android:textColorHint="@color/grey"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/useradd2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="#ffffff"
+            android:drawablePadding="20dp"
+            android:hint="Thread body text"
+            android:inputType="text"
+            android:padding="20dp"
+            android:selectAllOnFocus="true"
+            android:textColor="@color/black"
+            android:textColorHint="@color/grey"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/submitCommentButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="#FFD700"
+            android:onClick="onSubmitClickThread2"
+            android:text="Submit" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
