@@ -267,7 +267,7 @@
                             android:gravity="center_vertical"
                             android:text="Integer tristique ut diam ac interdum."
                             android:textColor="#2C3E50"
-                            android:textSize="16sp" />
+                            android:textSize="20sp" />
 
                         <TextView
                             android:id="@+id/timeText"

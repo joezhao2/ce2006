@@ -518,10 +518,13 @@ public class ThreadActivity extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 DocumentSnapshot document = task.getResult();
                                 String struserid=document.get("userid").toString();
-                                Log.d("checkinguidforcomment",struserid) ;
-                                Log.d("checkinguidforcomment2",fbuserid) ;
+                                Log.d("checkinguid(thread)",struserid) ;
+                                Log.d("checkinguid(currentuser)",fbuserid) ;
                                 ArrayList<HashMap<String, String>> commentArrayList = (ArrayList<HashMap<String, String>>) document.get("comments");
-                                if(struserid.equals(fbuserid)) {
+                                Collections.reverse(commentArrayList);
+                                String struseridcomment=commentArrayList.get(viewHolder.getAdapterPosition()).get("userid");
+                                Log.d("checkinguid(comment)",struseridcomment);
+                                if(struseridcomment.equals(fbuserid)) {
                                     new AlertDialog.Builder(viewHolder.itemView.getContext())
                                             .setMessage("Deleting comment, are you sure?")
                                             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
