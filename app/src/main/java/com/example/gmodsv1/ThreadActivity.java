@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 
 import org.w3c.dom.Text;
 
@@ -31,9 +32,11 @@ import java.time.LocalTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class ThreadActivity extends AppCompatActivity {
@@ -49,7 +52,9 @@ public class ThreadActivity extends AppCompatActivity {
     CommentAdapter adapter;
     private CommentAdapter.RecyclerViewClickListener listener;
 
-    private void updateCommentDisplay(String courseId, String documentId) {
+    String courseId, documentId;
+
+    private void updateCommentDisplay() {
         mDb.collection(MODULES)
                 .document(courseId)
                 .collection("thread")
@@ -93,7 +98,7 @@ public class ThreadActivity extends AppCompatActivity {
                 });
     }
 
-    private void updateThreadDisplay(String courseId, String documentId) {
+    private void updateThreadDisplay() {
         mDb.collection(MODULES)
                 .document(courseId)
                 .collection("thread")
@@ -135,6 +140,9 @@ public class ThreadActivity extends AppCompatActivity {
                                         ArrayList<HashMap<String, String>> commentArrayList = (ArrayList<HashMap<String, String>>) document.get("comments");
                                         String replyCount = Integer.toString(commentArrayList.size() - 1);
 
+                                        ArrayList<String> upvotedUserids = (ArrayList<String>) document.get("upvotedUserids");
+                                        Boolean upvoted = upvotedUserids.contains(fbuser.getUid());
+
                                         TextView usernameText = findViewById(R.id.usernameText);
                                         TextView titleText = findViewById(R.id.threadTitle);
                                         TextView bodyText = findViewById(R.id.bodyText);
@@ -157,8 +165,16 @@ public class ThreadActivity extends AppCompatActivity {
                                         timeText.setText(timeString);
 
                                         // To be done: code upvote function
-                                        upvoteOnIcon.setVisibility(View.GONE);
-                                        upvoteOffIcon.setVisibility(View.VISIBLE);
+                                        if (!upvoted) {
+                                            upvoteOnIcon.setVisibility(View.GONE);
+                                            upvoteOffIcon.setVisibility(View.VISIBLE);
+                                        }
+                                        else {
+                                            upvoteOnIcon.setVisibility(View.VISIBLE);
+                                            upvoteOffIcon.setVisibility(View.GONE);
+                                        }
+
+
                                         upvoteCountText.setText(upvoteCount);
 
                                         replyCountText.setText(replyCount);
@@ -200,6 +216,76 @@ public class ThreadActivity extends AppCompatActivity {
                     }
                 });
     }
+    public void onThreadUpvoteClick(View view) {
+        mDb.collection(MODULES)
+                .document(courseId)
+                .collection("thread")
+                .document(documentId)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @RequiresApi(api = Build.VERSION_CODES.O)
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            ArrayList<HashMap<String, String>> commentArrayList = new ArrayList<>();
+                            DocumentSnapshot document = task.getResult();
+                            if (document.exists()) {
+                                try {
+                                    ArrayList<String> upvotedUserids = (ArrayList<String>) document.get("upvotedUserids");
+                                    Boolean upvoted = upvotedUserids.contains(fbuser.getUid());
+
+                                    String upvoteCount = document.get("upvotes").toString();
+
+
+                                    if (!upvoted) {
+                                        Map<String, String> upvotes = new HashMap<>();
+                                        upvotes.put("upvotes", Integer.toString(Integer.parseInt(upvoteCount) + 1));
+                                        mDb.collection(MODULES)
+                                                .document(courseId)
+                                                .collection("thread")
+                                                .document(documentId)
+                                                .set(upvotes, SetOptions.merge());
+                                        mDb.collection(MODULES)
+                                                .document(courseId)
+                                                .collection("thread")
+                                                .document(documentId)
+                                                .update("upvotedUserids", FieldValue.arrayUnion(fbuser.getUid()))
+                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                        updateThreadDisplay();
+                                                    }
+                                                });
+                                    }
+                                    else {
+                                        Map<String, String> upvotes = new HashMap<>();
+                                        upvotes.put("upvotes", Integer.toString(Integer.parseInt(upvoteCount) - 1));
+                                        mDb.collection(MODULES)
+                                                .document(courseId)
+                                                .collection("thread")
+                                                .document(documentId)
+                                                .set(upvotes, SetOptions.merge());
+
+                                        mDb.collection(MODULES)
+                                                .document(courseId)
+                                                .collection("thread")
+                                                .document(documentId)
+                                                .update("upvotedUserids", FieldValue.arrayRemove(fbuser.getUid()))
+                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                        updateThreadDisplay();
+                                                    }
+                                                });
+                                    }
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                    }
+                });
+    }
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thread);
@@ -208,14 +294,14 @@ public class ThreadActivity extends AppCompatActivity {
         initData();
         initRecyclerView("text");
         Intent intent = getIntent();
-        String courseId = intent.getStringExtra("course").substring(0, 6);    // s
-        String documentId = intent.getStringExtra("course").substring(6, 26);   // s1
+        courseId = intent.getStringExtra("course").substring(0, 6);    // s
+        documentId = intent.getStringExtra("course").substring(6, 26);   // s1
 
         Log.d("coursename", courseId);
         Log.d("documentId", documentId);
 
-        updateThreadDisplay(courseId, documentId);
-        updateCommentDisplay(courseId, documentId);
+        updateThreadDisplay();
+        updateCommentDisplay();
 
 
 //        mDb.collection(MODULES)
@@ -334,8 +420,8 @@ public class ThreadActivity extends AppCompatActivity {
     public void onSubmitClickComment(View view) {
         Intent intent = getIntent();
         //String title = intent.getStringExtra("threadtitle");
-        String courseId=intent.getStringExtra("course").substring(0,6);
-        String documentId=intent.getStringExtra("course").substring(6);
+        courseId=intent.getStringExtra("course").substring(0,6);
+        documentId=intent.getStringExtra("course").substring(6);
         EditText commentEditText = findViewById(R.id.commentBox);//get the name out from the "nameEditText"box
 
 
@@ -358,8 +444,8 @@ public class ThreadActivity extends AppCompatActivity {
         //.add(p) .add generates random ID
         RecyclerView commentlistview = findViewById(R.id.commentList);
         adapter.clear();
-        updateCommentDisplay(courseId, documentId);
-        updateThreadDisplay(courseId, documentId);
+        updateCommentDisplay();
+        updateThreadDisplay();
 
 //        mDb.collection(MODULES)
 //                .document(courseId)

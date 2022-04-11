@@ -43,37 +43,15 @@ public class listviewonclick2 extends AppCompatActivity {
     private String fbuserid =fbuser.getUid();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_listviewonclick2);
-        getSupportActionBar().hide();
-        Intent intent = getIntent();
-        String s = intent.getStringExtra("course");
-        TextView coursecodebig = findViewById(R.id.mainview);
-        coursecodebig.setText(s);
-        initData();
-        initRecyclerView("text");
-        TextView coursenameundercoursecode =findViewById(R.id.textView5);
+    protected void onResume() {
+        super.onResume();
+        updateThreadList();
+    }
+
+    String courseId;
+    public void updateThreadList() {
         mDb.collection(MODULES)
-                .document(s)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()) {
-                            DocumentSnapshot document = task.getResult();
-                            String coursename = document.get("name").toString();
-                            coursenameundercoursecode.setText(coursename);
-                        }
-                    }
-                });
-
-
-
-
-
-        mDb.collection(MODULES)
-                .document(s)
+                .document(courseId)
                 .collection("thread")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -91,10 +69,10 @@ public class listviewonclick2 extends AppCompatActivity {
                                         ArrayList<HashMap<String, String>> commentArrayList = (ArrayList<HashMap<String, String>>) document.get("comments");
                                         String replies = Integer.toString(commentArrayList.size() - 1);
 
-                                        ModelClass m= new ModelClass(R.drawable.photo6208635785310221009,user, s+document.getId(), title, upvotes, replies, timeStr);
+                                        ModelClass m= new ModelClass(R.drawable.photo6208635785310221009,user, courseId+document.getId(), title, upvotes, replies, timeStr);
                                         userList.add(m);
-                                        initRecyclerView(s+document.getId());
-                                        Log.d("name+id",s+document.getId());
+                                        initRecyclerView(courseId+document.getId());
+                                        Log.d("name+id",courseId+document.getId());
                                     } catch (Exception e) {
                                         e.printStackTrace();
                                     }
@@ -105,18 +83,34 @@ public class listviewonclick2 extends AppCompatActivity {
                         }
                     }
                 });
-                /*.addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        ArrayList<String> arrayList = (ArrayList<String>) document.get("comments");
-                        for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
-                            Thread t = document.toObject(Thread.class);
+    }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_listviewonclick2);
+        getSupportActionBar().hide();
+        Intent intent = getIntent();
+        courseId = intent.getStringExtra("course");
+        TextView coursecodebig = findViewById(R.id.mainview);
+        coursecodebig.setText(courseId);
+        initData();
+        initRecyclerView("text");
+        TextView coursenameundercoursecode =findViewById(R.id.textView5);
+        mDb.collection(MODULES)
+                .document(courseId)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            String coursename = document.get("name").toString();
+                            coursenameundercoursecode.setText(coursename);
                         }
                     }
-
-                */
-
+                });
+        updateThreadList();
     }
 
     private void initRecyclerView(String s) {
@@ -131,7 +125,6 @@ public class listviewonclick2 extends AppCompatActivity {
         setOnClickListener(s);
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
     }
-
     private void setOnClickListener(String s) {
         listener=new Adapter.RecyclerViewClickListener() {
             @Override

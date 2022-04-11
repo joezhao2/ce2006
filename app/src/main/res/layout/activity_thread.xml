@@ -138,7 +138,8 @@
 
                                 <androidx.cardview.widget.CardView
                                     android:layout_width="match_parent"
-                                    android:layout_height="40dp">
+                                    android:layout_height="40dp"
+                                    android:onClick="onThreadUpvoteClick">
 
                                     <LinearLayout
                                         android:layout_width="wrap_content"
@@ -159,6 +160,7 @@
                                             android:layout_width="20dp"
                                             android:layout_height="18dp"
                                             android:layout_gravity="center_horizontal"
+                                            android:clickable="false"
                                             app:srcCompat="@drawable/arrow_up_off" />
 
                                         <TextView
