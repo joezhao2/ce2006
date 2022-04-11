@@ -110,6 +110,20 @@ public class ThreadActivity extends AppCompatActivity {
                                         String username = document.get("username").toString();
                                         String title = document.get("title").toString();
                                         String body = document.get("body").toString();
+                                        TextView courseidtext = findViewById(R.id.courseIdText);
+                                        TextView coursenametext = findViewById(R.id.courseNameText);
+                                        courseidtext.setText(courseId);
+                                        mDb.collection(MODULES).document(courseId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                if (task.isSuccessful()) {
+                                                    DocumentSnapshot document = task.getResult();
+                                                    String couseName = document.get("name").toString();
+                                                    coursenametext.setText(couseName);
+                                                }
+                                            }
+                                        });
+
 
                                         Instant time = Instant.parse(document.get("time").toString());
                                         LocalDateTime localDateTime = LocalDateTime.ofInstant(time, ZoneOffset.UTC);
@@ -202,6 +216,7 @@ public class ThreadActivity extends AppCompatActivity {
 
         updateThreadDisplay(courseId, documentId);
         updateCommentDisplay(courseId, documentId);
+
 
 //        mDb.collection(MODULES)
 //                .document(courseName)
