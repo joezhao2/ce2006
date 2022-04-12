@@ -99,6 +99,24 @@
 
         </androidx.recyclerview.widget.RecyclerView>
 
+        <androidx.cardview.widget.CardView
+            android:id="@+id/noThreadDisplay"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_margin="3dp"
+            android:layout_marginStart="3dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:visibility="visible">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="No discussion threads yet" />
+        </androidx.cardview.widget.CardView>
+
     </LinearLayout>
 
     <LinearLayout

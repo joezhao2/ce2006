@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -52,6 +53,8 @@ public class listviewonclick2 extends AppCompatActivity {
 
     String courseId;
     public void updateThreadList() {
+        adapter.clear();
+        final boolean[] noThreads = {true};
         mDb.collection(MODULES)
                 .document(courseId)
                 .collection("thread")
@@ -77,11 +80,27 @@ public class listviewonclick2 extends AppCompatActivity {
                                         userList.add(m);
                                         initRecyclerView(courseId+document.getId());
                                         Log.d("name+id",courseId+document.getId());
+                                        noThreads[0] = false;
                                     } catch (Exception e) {
                                         e.printStackTrace();
                                     }
                                 }
                             }
+                        }
+                        Log.d("thread", String.valueOf(noThreads[0]));
+                        if(noThreads[0]) {
+                            CardView noCommentDisplay = findViewById(R.id.noThreadDisplay);
+                            noCommentDisplay.setVisibility(View.VISIBLE);
+
+                            RecyclerView threadsList = findViewById(R.id.recyclerviewheader);
+                            threadsList.setVisibility(View.GONE);
+                        }
+                        else {
+                            CardView noCommentDisplay = findViewById(R.id.noThreadDisplay);
+                            noCommentDisplay.setVisibility(View.GONE);
+
+                            RecyclerView threadsList = findViewById(R.id.recyclerviewheader);
+                            threadsList.setVisibility(View.VISIBLE);
                         }
                     }
                 });
@@ -112,7 +131,6 @@ public class listviewonclick2 extends AppCompatActivity {
                         }
                     }
                 });
-
     }
 
     private void initRecyclerView(String s) {
