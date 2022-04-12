@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         FirebaseUser firebaseUser = authProfile.getCurrentUser();
 
         if (firebaseUser != null){
-            Intent intent = new Intent(MainActivity.this, UserProfileActivity.class);
+            Intent intent = new Intent(MainActivity.this, FirestoreListActivity.class);
             startActivity(intent);
         }
 
