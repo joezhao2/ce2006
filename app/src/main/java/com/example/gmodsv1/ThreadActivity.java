@@ -463,7 +463,7 @@ public class ThreadActivity extends AppCompatActivity {
         adapter.clear();
         updateCommentDisplay();
         updateThreadDisplay();
-
+        commentEditText.getText().clear();
 
 //        mDb.collection(MODULES)
 //                .document(courseId)
@@ -557,6 +557,7 @@ public class ThreadActivity extends AppCompatActivity {
                                                                     commentList.remove(viewHolder.getAdapterPosition());//get position of the thread obj to remove
                                                                     updateThreadDisplay();
                                                                     updateCommentDisplay();
+
                                                                 }
                                                             });
                                                     Log.d("id", Integer.toString(viewHolder.getAdapterPosition()));
