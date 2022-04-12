@@ -2,6 +2,7 @@ package com.example.gmodsv1;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,13 +21,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.SetOptions;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -45,6 +52,8 @@ public class ThreadActivity extends AppCompatActivity {
     private static final String MODULES = "modules";
     private FirebaseUser fbuser = FirebaseAuth.getInstance().getCurrentUser();
     private String fbuserid=fbuser.getUid();
+
+    private StorageReference storageReference;
 
     RecyclerView recyclerView;
     LinearLayoutManager layoutManager;
@@ -196,7 +205,23 @@ public class ThreadActivity extends AppCompatActivity {
                                             replyDisplayText.setText("Replies");
                                         }
 
+                                        String userid = document.get("userid").toString();
 
+//                                        StorageReference fileReference = storageReference.child(userid + "." + "jpg");
+//                                        fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+//                                            @Override
+//                                            public void onSuccess(Uri uri) {
+//                                                Log.d("log", userid + "." + "jpg");
+//                                                ImageView pfpIcon = findViewById(R.id.pfpIcon);
+//                                                Picasso.get().load(uri).into(pfpIcon);
+//                                            }
+//                                        }).addOnFailureListener(new OnFailureListener() {
+//                                            @Override
+//                                            public void onFailure(@NonNull Exception e) {
+//                                                ImageView pfpIcon = findViewById(R.id.pfpIcon);
+//                                                pfpIcon.setImageResource(R.drawable.default_profile_pic);
+//                                            }
+//                                        });
 
 
 
@@ -307,6 +332,8 @@ public class ThreadActivity extends AppCompatActivity {
         Intent intent = getIntent();
         courseId = intent.getStringExtra("course").substring(0, 6);    // s
         documentId = intent.getStringExtra("course").substring(6, 26);   // s1
+
+        storageReference = FirebaseStorage.getInstance().getReference("DisplayPics");
 
         Log.d("coursename", courseId);
         Log.d("documentId", documentId);

@@ -2,6 +2,7 @@ package com.example.gmodsv1;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +15,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -21,6 +24,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -42,6 +47,7 @@ public class listviewonclick2 extends AppCompatActivity {
     private Adapter.RecyclerViewClickListener listener;
     private FirebaseUser fbuser = FirebaseAuth.getInstance().getCurrentUser();
     private String fbuserid =fbuser.getUid();
+    private StorageReference storageReference;
 
     @Override
     protected void onResume() {
@@ -73,13 +79,29 @@ public class listviewonclick2 extends AppCompatActivity {
                                         String user = document.get("username").toString();
                                         String timeStr = TimeFormatter.getStringTimeDelta(Instant.parse(document.get("time").toString()), Instant.now());
                                         String upvotes = document.get("upvotes").toString();
+                                        String userid = document.get("userid").toString();
                                         ArrayList<HashMap<String, String>> commentArrayList = (ArrayList<HashMap<String, String>>) document.get("comments");
                                         String replies = Integer.toString(commentArrayList.size() - 1);
 
-                                        ModelClass m= new ModelClass(R.drawable.photo6208635785310221009,user, courseId+document.getId(), title, upvotes, replies, timeStr);
-                                        userList.add(m);
-                                        initRecyclerView(courseId+document.getId());
-                                        Log.d("name+id",courseId+document.getId());
+                                        StorageReference fileReference = storageReference.child(userid + "." + "jpg");
+                                        QueryDocumentSnapshot finalDocument = document;
+                                        fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                            @Override
+                                            public void onSuccess(Uri uri) {
+                                                Log.d("log", userid + "." + "jpg");
+                                                ModelClass m= new ModelClass(uri,user, courseId+ finalDocument.getId(), title, upvotes, replies, timeStr);
+                                                userList.add(m);
+                                                Log.d("uri", uri.toString());
+                                                initRecyclerView(courseId+ finalDocument.getId());
+                                            }
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                ModelClass m= new ModelClass(R.drawable.default_profile_pic,user, courseId+ finalDocument.getId(), title, upvotes, replies, timeStr);
+                                                userList.add(m);
+                                                initRecyclerView(courseId+ finalDocument.getId());
+                                            }
+                                        });
                                         noThreads[0] = false;
                                     } catch (Exception e) {
                                         e.printStackTrace();
@@ -118,6 +140,9 @@ public class listviewonclick2 extends AppCompatActivity {
         initData();
         initRecyclerView("text");
         TextView coursenameundercoursecode =findViewById(R.id.textView5);
+
+        storageReference = FirebaseStorage.getInstance().getReference("DisplayPics");
+
         mDb.collection(MODULES)
                 .document(courseId)
                 .get()
@@ -131,6 +156,7 @@ public class listviewonclick2 extends AppCompatActivity {
                         }
                     }
                 });
+
     }
 
     private void initRecyclerView(String s) {

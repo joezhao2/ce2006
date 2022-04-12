@@ -1,5 +1,6 @@
 package com.example.gmodsv1;
 
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -36,7 +39,16 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         Integer upvoteCount= commentlist.get(position).getUpvoteCount();
         Boolean upvoted= commentlist.get(position).getUpvoted();
         String timeStr= commentlist.get(position).getTimeStr();
-        holder.setData(imageId, username, id, content, upvoteCount, upvoted, timeStr);
+
+        Uri uri = commentlist.get(position).getUri();
+
+        if (!commentlist.get(position).getHasPic()) {
+            holder.setData(imageId, username, id, content, upvoteCount, upvoted, timeStr);
+        }
+        else {
+            holder.setData(uri, username, id, content, upvoteCount, upvoted, timeStr);
+        }
+
 
     }
 
@@ -82,6 +94,24 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
         public void setData(int imageId, String username, String id, String content, Integer upvoteCount, Boolean upvoted, String timeStr) {
             pfpIcon.setImageResource(imageId);
+            usernameText.setText(username);
+            contentText.setText(content);
+            documentId.setText(id);
+
+            if(upvoted) {
+                upvoteOffIcon.setVisibility(View.GONE);
+                upvoteOnIcon.setVisibility(View.VISIBLE);
+            }
+            else {
+                upvoteOffIcon.setVisibility(View.VISIBLE);
+                upvoteOnIcon.setVisibility(View.GONE);
+            }
+            upvoteCountText.setText(upvoteCount.toString());
+            timeDeltaText.setText(timeStr);
+        }
+
+        public void setData(Uri uri, String username, String id, String content, Integer upvoteCount, Boolean upvoted, String timeStr) {
+            Picasso.get().load(uri).into(pfpIcon);
             usernameText.setText(username);
             contentText.setText(content);
             documentId.setText(id);

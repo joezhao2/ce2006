@@ -63,7 +63,7 @@ public class UploadProfilePicActivity extends AppCompatActivity {
         //Set User's Current DP in ImageView (if uploaded already). We will use Picasso
 
         //if there is any existing picture
-        Picasso.with(UploadProfilePicActivity.this).load(uri).into(imageViewUploadPic);
+        Picasso.get().load(uri).into(imageViewUploadPic);
 
 
         //Uploading the picture (for the first time)

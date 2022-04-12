@@ -116,7 +116,7 @@ public class UserProfileActivity extends AppCompatActivity {
                     //Set User Profile Pic
                     Uri uri = firebaseUser.getPhotoUrl();
                     //nid to use piccasso cos image in data base
-                    Picasso.with(UserProfileActivity.this).load(uri).into(imageView);
+                    Picasso.get().load(uri).into(imageView);
                 }
                 else {
                     Toast.makeText(UserProfileActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();

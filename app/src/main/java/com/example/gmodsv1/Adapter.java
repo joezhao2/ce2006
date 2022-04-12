@@ -1,5 +1,6 @@
 package com.example.gmodsv1;
 
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -38,8 +41,16 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
         String timeDelta=userlist.get(position).getTimeDelta();
 
-        holder.setData(resource,name,msg,comment,upvoteCount,replyCount, timeDelta);
+        boolean hasPic = userlist.get(position).getHasPic();
 
+        Uri uri;
+        if(!hasPic) {
+            holder.setData(resource,name,msg,comment,upvoteCount,replyCount, timeDelta);
+        }
+        else {
+            uri = userlist.get(position).getUri();
+            holder.setData(uri,name,msg,comment,upvoteCount,replyCount, timeDelta);
+        }
     }
 
     @Override
@@ -93,6 +104,31 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
         public void setData(int resource, String name, String msg, String comment, String upvoteCount, String replyCount, String timeDelta) {
             imageView.setImageResource(resource);
+            textView.setText(name);
+            textView3.setText(msg);
+            textView2.setText(comment);
+
+            upvoteCountText.setText(upvoteCount);
+            if(upvoteCount.equals("1")) {
+                upvoteDisplayText.setText("Upvote");
+            }
+            else {
+                upvoteDisplayText.setText("Upvotes");
+            }
+
+            replyCountText.setText(replyCount);
+            if(replyCount.equals("1")) {
+                replyDisplayText.setText("Reply");
+            }
+            else {
+                replyDisplayText.setText("Replies");
+            }
+            timeDeltaText.setText(timeDelta);
+        }
+
+        public void setData(Uri uri, String name, String msg, String comment, String upvoteCount, String replyCount, String timeDelta) {
+
+            Picasso.get().load(uri).into(imageView);
             textView.setText(name);
             textView3.setText(msg);
             textView2.setText(comment);
