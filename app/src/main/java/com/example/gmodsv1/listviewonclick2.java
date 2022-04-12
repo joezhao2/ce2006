@@ -55,6 +55,7 @@ public class listviewonclick2 extends AppCompatActivity {
         mDb.collection(MODULES)
                 .document(courseId)
                 .collection("thread")
+                .orderBy("time")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -64,6 +65,7 @@ public class listviewonclick2 extends AppCompatActivity {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 if (document.exists()) {
                                     try {
+                                        document = document;
                                         String title = document.get("title").toString();
                                         String user = document.get("username").toString();
                                         String timeStr = TimeFormatter.getStringTimeDelta(Instant.parse(document.get("time").toString()), Instant.now());
@@ -181,8 +183,6 @@ public class listviewonclick2 extends AppCompatActivity {
         //intent.putExtra("course",s.toString().toUpperCase());
         startActivity(intent2);
         initRecyclerView(s);
-
-
     }
     ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.RIGHT) {
         @Override

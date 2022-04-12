@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/regpagebg"
+    android:background="#FFFFFF"
     tools:context=".RegisterActivity">
 
     <RelativeLayout
@@ -20,7 +20,7 @@
             android:text="GMOD"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="#3F51B5"
+            android:textColor="#2c3e50"
             android:textSize="40sp"
             android:textStyle="bold" />
 
@@ -194,8 +194,8 @@
             android:layout_marginLeft="70dp"
             android:layout_marginTop="50dp"
             android:layout_marginRight="70dp"
-            android:text="Register"
-            android:backgroundTint="@color/grey"/>
+            android:backgroundTint="#e74c3c"
+            android:text="Register" />
 
         <ProgressBar
 

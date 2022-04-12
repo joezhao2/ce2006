@@ -1,5 +1,6 @@
 package com.example.gmodsv1;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,6 +13,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -48,8 +51,8 @@ public class ThreadAddActivity extends AppCompatActivity {
         EditText thread=findViewById(R.id.threadadd2);
         String b=user.getText().toString();
         String t=thread.getText().toString();
-        Intent intent = getIntent();
-        String s = intent.getStringExtra("course");
+        final Intent[] intent = {getIntent()};
+        String s = intent[0].getStringExtra("course");
         Map<String, Object> data = new HashMap<>();
 
         String id = mDb.collection(MODULES).document(s).collection("thread").document().getId();
@@ -89,12 +92,18 @@ public class ThreadAddActivity extends AppCompatActivity {
                 .document(s)
                 .collection("thread")
                 .document(id)
-                .set(data2, SetOptions.merge());
+                .set(data2, SetOptions.merge())
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        intent[0] = new Intent(ThreadAddActivity.this,listviewonclick2.class);
+                        intent[0].putExtra("course",s);
+                        startActivity(intent[0]);
+                    }
+                });
         //initRecyclerView(s);
         //adapter.notifyDataSetChanged();
-        intent = new Intent(ThreadAddActivity.this,listviewonclick2.class);
-        intent.putExtra("course",s);
-        startActivity(intent);
+
 
     }
 }

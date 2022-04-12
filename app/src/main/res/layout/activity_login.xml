@@ -69,8 +69,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textView_login_pwd"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="12dp"
+            android:layout_alignStart="@+id/imageView_show_hide_pwd"
+            android:layout_marginStart="-3dp"
+            android:layout_marginTop="13dp"
             android:background="@drawable/border"
             android:hint="Enter password"
             android:inputType="textPassword"
@@ -85,8 +86,8 @@
             android:layout_marginLeft="70dp"
             android:layout_marginTop="50dp"
             android:layout_marginRight="70dp"
-            android:text="Login"
-            android:backgroundTint="@color/grey"/>
+            android:backgroundTint="#e74c3c"
+            android:text="Login" />
 
         <Button
             android:id="@+id/button_forgot_password"
@@ -95,8 +96,8 @@
             android:layout_below="@+id/button_login"
             android:layout_marginLeft="70dp"
             android:layout_marginRight="70dp"
-            android:text="Forgot Password?"
-            android:backgroundTint="@color/grey"/>
+            android:backgroundTint="#34495e"
+            android:text="Forgot Password?" />
 
         <ProgressBar
             android:id="@+id/progressbar_login"

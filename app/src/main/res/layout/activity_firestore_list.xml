@@ -9,55 +9,117 @@
     android:orientation="vertical"
     tools:context=".FirestoreListActivity">
 
-    <TextView
-        android:id="@+id/welcomeback"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="30dp"
-        android:gravity="center"
-        android:text="NTUMOD TALK"
-        android:textColor="@color/black"
-        android:textSize="30dp"
-        android:textStyle="bold" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginTop="-50dp"
+            app:srcCompat="@drawable/header_bg" />
 
-    <EditText
-        android:id="@+id/searchbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/welcomeback"
-        android:layout_margin="5dp"
-        android:background="#30ffffff"
-        android:drawableLeft="@drawable/ic_baseline_search_24"
-        android:drawablePadding="20dp"
-        android:hint="Search modules"
-        android:inputType="text"
-        android:padding="20dp"
-        android:selectAllOnFocus="true"
-        android:textColor="@color/black"
-        android:textColorHint="@color/dark_green"
-        android:textSize="18sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_marginTop="-1dp"
+            android:background="#2c3e50"
+            android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/searchbutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/searchbar"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:backgroundTint="@color/grey"
-        android:textColor="@color/black"
-        android:onClick="onRefreshClick"
-        android:text="Search" />
+        </LinearLayout>
 
-    <ListView
-        android:id="@+id/moduleListView"
-        android:layout_width="match_parent"
-        android:layout_height="379dp"
-        android:layout_below="@id/searchbutton"
-        android:layout_marginTop="12dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="#FFFFFF"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="-5dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/mainview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:text="NTU Modules Forum"
+                    android:textColor="#34495E"
+                    android:textSize="30dp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="-1dp"
+            android:background="#bdc3c7"
+            android:orientation="horizontal">
+
+        </LinearLayout>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <EditText
+                    android:id="@+id/searchbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/view_border"
+                    android:drawableLeft="@drawable/ic_baseline_search_24"
+                    android:drawablePadding="20dp"
+                    android:hint="Search modules"
+                    android:inputType="text"
+                    android:padding="20dp"
+                    android:selectAllOnFocus="true"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/dark_green"
+                    android:textSize="18sp" />
+
+                <Button
+                    android:id="@+id/searchbutton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:backgroundTint="#e74c3c"
+                    android:onClick="onRefreshClick"
+                    android:text="Search"
+                    android:textColor="#ffffff" />
+
+                <ListView
+                    android:id="@+id/moduleListView"
+                    android:layout_width="match_parent"
+                    android:layout_height="302dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/view_border" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
 
     <FrameLayout
         android:id="@+id/flFragment"

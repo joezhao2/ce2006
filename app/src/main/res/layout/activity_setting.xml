@@ -9,6 +9,10 @@
     >
 
 
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <Button
         android:id="@+id/button_upload_profile_pic"
         android:layout_width="match_parent"
@@ -16,10 +20,9 @@
         android:layout_marginLeft="70dp"
         android:layout_marginTop="70dp"
         android:layout_marginRight="70dp"
+        android:backgroundTint="#34495e"
         android:text="Upload Profile Picture"
-        android:backgroundTint="@color/grey"
-        android:textColor="@color/black"
-   />
+        android:textColor="@color/white" />
 
     <Button
         android:id="@+id/button_change_password"
@@ -29,9 +32,9 @@
         android:layout_marginLeft="70dp"
         android:layout_marginTop="20dp"
         android:layout_marginRight="70dp"
+        android:backgroundTint="#34495e"
         android:text="Change Password"
-        android:backgroundTint="@color/grey"
-        android:textColor="@color/black"/>
+        android:textColor="@color/white" />
 
     <Button
         android:id="@+id/button_change_username"
@@ -41,9 +44,9 @@
         android:layout_marginLeft="70dp"
         android:layout_marginTop="20dp"
         android:layout_marginRight="70dp"
+        android:backgroundTint="#34495e"
         android:text="Change Username"
-        android:backgroundTint="@color/grey"
-        android:textColor="@color/black"/>
+        android:textColor="@color/white" />
 
     <Button
         android:id="@+id/button_delete_account"
@@ -53,9 +56,9 @@
         android:layout_marginLeft="70dp"
         android:layout_marginTop="20dp"
         android:layout_marginRight="70dp"
+        android:backgroundTint="#34495e"
         android:text="Delete Account"
-        android:backgroundTint="@color/grey"
-        android:textColor="@color/black"/>
+        android:textColor="@color/white" />
 
 
     <Button
@@ -66,9 +69,9 @@
         android:layout_marginLeft="70dp"
         android:layout_marginTop="250dp"
         android:layout_marginRight="70dp"
+        android:backgroundTint="#e74c3c"
         android:text="Sign Out"
-        android:backgroundTint="@color/grey"
-        android:textColor="@color/black"/>
+        android:textColor="@color/black" />
 
     <FrameLayout
         android:id="@+id/flFragment"
