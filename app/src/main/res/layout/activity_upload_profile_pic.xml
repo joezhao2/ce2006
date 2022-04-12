@@ -25,14 +25,14 @@
             />
 
         <Button
+            android:id="@+id/upload_pic_choose_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/upload_pic_choose_button"
             android:layout_below="@+id/textView_upload_pic_head"
-            android:text="Choose Picture"
-            android:layout_marginRight="70dp"
             android:layout_marginLeft="70dp"
-            />
+            android:layout_marginRight="70dp"
+            android:backgroundTint="#34495e"
+            android:text="Choose Picture" />
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="400dp"
@@ -43,16 +43,16 @@
             />
 
         <Button
+            android:id="@+id/upload_pic_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/upload_pic_button"
             android:layout_below="@+id/imageView_profile_dp"
-            android:layout_marginTop="40dp"
             android:layout_marginLeft="70dp"
+            android:layout_marginTop="40dp"
             android:layout_marginRight="70dp"
             android:layout_marginBottom="10dp"
             android:text="Upload"
-            />
+            android:backgroundTint="#e74c3c"/>
 
         <ProgressBar
             android:id="@+id/progressBar_uploadProfilePic"

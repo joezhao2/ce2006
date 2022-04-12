@@ -32,19 +32,19 @@
             android:layout_marginTop="10dp"
             android:text="Welcome to Galactic Modules"
             android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            android:textColor="@color/black" />
+
         <Button
+            android:id="@+id/button_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/button_login"
-            android:text="Login"
-            android:layout_below = "@+id/textView_main_head"
-            android:layout_marginTop="100dp"
+            android:layout_below="@+id/textView_main_head"
             android:layout_marginLeft="70dp"
+            android:layout_marginTop="100dp"
             android:layout_marginRight="70dp"
             android:backgroundTint="#c0c0c0"
-            />
+            android:text="Login" />
 
         <Button
             android:layout_width="match_parent"
@@ -68,7 +68,7 @@
             android:text="kill nothing but time"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="30dp"
             android:textStyle="italic" />
 
@@ -83,7 +83,7 @@
             android:layout_marginTop="5dp"
             android:text="~ Tan Jun 2022"
             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="10dp"
             android:textStyle="italic" />
 
