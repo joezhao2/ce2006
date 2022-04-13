@@ -126,6 +126,9 @@ public class SettingActivity extends AppCompatActivity {
                         if (newUsername.equals(firebaseUser.getDisplayName())){
                             Toast.makeText(SettingActivity.this, "New Username is same as the current one", Toast.LENGTH_SHORT).show();
                         }
+                        else if(newUsername.isEmpty()){
+                            Toast.makeText(SettingActivity.this, "Username field is empty", Toast.LENGTH_SHORT).show();
+                        }
                         else {
                             UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder().setDisplayName(newUsername).build();
                             assert firebaseUser != null;
