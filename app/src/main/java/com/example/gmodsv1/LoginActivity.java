@@ -27,7 +27,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseUser;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements LoginMethod {
 
     private static final String TAG = "LoginActivity";
     private EditText editTextLoginEmail , editTextLoginPwd;
@@ -106,7 +106,52 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void loginUser(String textEmail, String textPwd) {
+
+
+//    private void showAlertDialog() {
+//        //Set up Alert Builder
+//        AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+//        builder.setTitle("Email is not verified");
+//        builder.setMessage("Please verify your email now. You cannot login without email verification");
+//
+//        //Open Email App if user click on continue button
+//        builder.setPositiveButton("continue", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialogInterface, int i) {
+//                Intent intent = new Intent(Intent.ACTION_MAIN);
+//                //This will choose the email app to go to
+//                intent.addCategory(Intent.CATEGORY_APP_EMAIL);
+//                //email app will open a new window , will not affect out app
+//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                startActivity(intent);
+//            }
+//        });
+//
+//        //Create the AlertDialog
+//        AlertDialog alertDialog = builder.create();
+//
+//        //Show the AlertDialog
+//
+//        alertDialog.show();
+//    }
+
+    //Check if User is already logged in. In such case , go to user activity page
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (authProfile.getCurrentUser() != null){
+            Toast.makeText(this, "Welcome back", Toast.LENGTH_SHORT).show();
+
+            //Start the UserProfileActivity
+            startActivity(new Intent(LoginActivity.this , UserProfileActivity.class));
+            finish(); // Close Login Activity
+        }
+        else {
+            Toast.makeText(this, "Please Login", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void loginUser(String textEmail, String textPwd) {
         authProfile.signInWithEmailAndPassword(textEmail , textPwd).addOnCompleteListener(LoginActivity.this ,new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -155,48 +200,4 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-
-//    private void showAlertDialog() {
-//        //Set up Alert Builder
-//        AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-//        builder.setTitle("Email is not verified");
-//        builder.setMessage("Please verify your email now. You cannot login without email verification");
-//
-//        //Open Email App if user click on continue button
-//        builder.setPositiveButton("continue", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialogInterface, int i) {
-//                Intent intent = new Intent(Intent.ACTION_MAIN);
-//                //This will choose the email app to go to
-//                intent.addCategory(Intent.CATEGORY_APP_EMAIL);
-//                //email app will open a new window , will not affect out app
-//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                startActivity(intent);
-//            }
-//        });
-//
-//        //Create the AlertDialog
-//        AlertDialog alertDialog = builder.create();
-//
-//        //Show the AlertDialog
-//
-//        alertDialog.show();
-//    }
-
-    //Check if User is already logged in. In such case , go to user activity page
-    @Override
-    protected void onStart() {
-        super.onStart();
-        if (authProfile.getCurrentUser() != null){
-            Toast.makeText(this, "Welcome back", Toast.LENGTH_SHORT).show();
-
-            //Start the UserProfileActivity
-            startActivity(new Intent(LoginActivity.this , UserProfileActivity.class));
-            finish(); // Close Login Activity
-        }
-        else {
-            Toast.makeText(this, "Please Login", Toast.LENGTH_SHORT).show();
-        }
-    }
-
 }
