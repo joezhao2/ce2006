@@ -115,7 +115,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
                     //Start the UserProfileActivity
-                    startActivity(new Intent(LoginActivity.this , UserProfileActivity.class));
+                    startActivity(new Intent(LoginActivity.this , FirestoreListActivity.class));
                     finish(); // Close Login Activity
 
 
