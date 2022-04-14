@@ -76,7 +76,7 @@ public class listviewonclick2 extends AppCompatActivity {
                                         ArrayList<HashMap<String, String>> commentArrayList = (ArrayList<HashMap<String, String>>) document.get("comments");
                                         String replies = Integer.toString(commentArrayList.size() - 1);
 
-                                        ModelClass m= new ModelClass(R.drawable.photo6208635785310221009,user, courseId+document.getId(), title, upvotes, replies, timeStr);
+                                        ModelClass m= new ModelClass(R.drawable.default_profile_pic,user, courseId+document.getId(), title, upvotes, replies, timeStr);
                                         userList.add(m);
                                         initRecyclerView(courseId+document.getId());
                                         Log.d("name+id",courseId+document.getId());
@@ -263,6 +263,11 @@ public class listviewonclick2 extends AppCompatActivity {
                                                                    .show();
                                                        }
                                                        else{
+                                                           AlertDialog.Builder builder = new AlertDialog.Builder(listviewonclick2.this);
+                                                           builder.setMessage("Unable to delete other user's thread")
+                                                                   .setPositiveButton("OK", null)
+                                                                   .create()
+                                                                   .show();
                                                            Log.d("checkinguid3","unable to delete!!!");
                                                            adapter.notifyItemChanged(viewHolder.getAdapterPosition());
                                                        }

@@ -81,7 +81,7 @@ public class ThreadActivity extends AppCompatActivity {
                                         String upvoteCount = commentObj.get("upvoteCount");
                                         String time = commentObj.get("time");
                                         Log.d("comment", content);
-                                        CommentModelClass tmpCommentObj = new CommentModelClass(R.drawable.photo6208635785310221009,
+                                        CommentModelClass tmpCommentObj = new CommentModelClass(R.drawable.default_profile_pic,
                                                 username,
                                                 content,
                                                 courseId+document.getId(),
@@ -437,29 +437,48 @@ public class ThreadActivity extends AppCompatActivity {
         documentId=intent.getStringExtra("course").substring(6);
         EditText commentEditText = findViewById(R.id.commentBox);//get the name out from the "nameEditText"box
 
-
         String commentString = commentEditText.getText().toString();
-        HashMap<String, String> commentObj = new HashMap<>();
-        commentObj.put("content", commentString);
-        commentObj.put("upvoteCount", "0");
-        commentObj.put("userid", fbuser.getUid());
-        commentObj.put("username", fbuser.getDisplayName());
-        commentObj.put("time", Instant.now().toString());
+
+        if (commentString.length() > 300) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(ThreadActivity.this);
+            builder.setMessage("Please limit comment length to under 300 characters")
+                    .setPositiveButton("OK", null)
+                    .create()
+                    .show();
+        }
+        else if (commentString.equals("")) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(ThreadActivity.this);
+            builder.setMessage("Please enter a comment")
+                    .setPositiveButton("OK", null)
+                    .create()
+                    .show();
+        }
+        else {
+            HashMap<String, String> commentObj = new HashMap<>();
+            commentObj.put("content", commentString);
+            commentObj.put("upvoteCount", "0");
+            commentObj.put("userid", fbuser.getUid());
+            commentObj.put("username", fbuser.getDisplayName());
+            commentObj.put("time", Instant.now().toString());
 
 //        int age = Integer.parseInt(ageString);
 
 //        Log.d(TAG, "Submitted name: " + m.getName() + ", Cousecode: " + m.getCoursecode());
-        mDb.collection(MODULES)
-                .document(courseId)
-                .collection("thread")
-                .document(documentId)
-                .update("comments", FieldValue.arrayUnion(commentObj));
-        //.add(p) .add generates random ID
-        RecyclerView commentlistview = findViewById(R.id.commentList);
-        adapter.clear();
-        updateCommentDisplay();
-        updateThreadDisplay();
-        commentEditText.getText().clear();
+            mDb.collection(MODULES)
+                    .document(courseId)
+                    .collection("thread")
+                    .document(documentId)
+                    .update("comments", FieldValue.arrayUnion(commentObj));
+            //.add(p) .add generates random ID
+            RecyclerView commentlistview = findViewById(R.id.commentList);
+            adapter.clear();
+            updateCommentDisplay();
+            updateThreadDisplay();
+            commentEditText.getText().clear();
+        }
+
+
+
 
 //        mDb.collection(MODULES)
 //                .document(courseId)
@@ -573,6 +592,11 @@ public class ThreadActivity extends AppCompatActivity {
                                             .show();
                                 }
                                 else{
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(ThreadActivity.this);
+                                    builder.setMessage("Unable to delete other user's comment")
+                                            .setPositiveButton("OK", null)
+                                            .create()
+                                            .show();
                                     Log.d("checkinguid3","unable to delete!!!");
                                     adapter.notifyItemChanged(viewHolder.getAdapterPosition());
                                 }

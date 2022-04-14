@@ -2,6 +2,7 @@ package com.example.gmodsv1;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -55,55 +56,76 @@ public class ThreadAddActivity extends AppCompatActivity {
         String s = intent[0].getStringExtra("course");
         Map<String, Object> data = new HashMap<>();
 
-        String id = mDb.collection(MODULES).document(s).collection("thread").document().getId();
-        Log.d("id",id);
-        data.put("comments", Arrays.asList(""));
-        mDb.collection(MODULES)
-                .document(s)
-                .collection("thread")
-                .document(id)
-                .set(data);
+        if (t.length() > 300) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(ThreadAddActivity.this);
+            builder.setMessage("Please limit title length to under 300 characters")
+                    .setPositiveButton("OK", null)
+                    .create()
+                    .show();
+        }
+        else if (t.equals("")) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(ThreadAddActivity.this);
+            builder.setMessage("Please enter a title")
+                    .setPositiveButton("OK", null)
+                    .create()
+                    .show();
+        }
+        else if (b.length() > 300) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(ThreadAddActivity.this);
+            builder.setMessage("Please limit content length to under 300 characters")
+                    .setPositiveButton("OK", null)
+                    .create()
+                    .show();
+        }
+        else {
+            String id = mDb.collection(MODULES).document(s).collection("thread").document().getId();
+            Log.d("id",id);
+            data.put("comments", Arrays.asList(""));
+            mDb.collection(MODULES)
+                    .document(s)
+                    .collection("thread")
+                    .document(id)
+                    .set(data);
 
-        // List for upvoted user ids
-        Map<String, Object> upvotedUserIds = new HashMap<>();
-        upvotedUserIds.put("upvotedUserids", Arrays.asList(""));
-        mDb.collection(MODULES)
-                .document(s)
-                .collection("thread")
-                .document(id)
-                .set(upvotedUserIds, SetOptions.merge());
+            // List for upvoted user ids
+            Map<String, Object> upvotedUserIds = new HashMap<>();
+            upvotedUserIds.put("upvotedUserids", Arrays.asList(""));
+            mDb.collection(MODULES)
+                    .document(s)
+                    .collection("thread")
+                    .document(id)
+                    .set(upvotedUserIds, SetOptions.merge());
 
-        // Upvote count
-        Map<String, String> upvotes = new HashMap<>();
-        upvotes.put("upvotes", "0");
-        mDb.collection(MODULES)
-                .document(s)
-                .collection("thread")
-                .document(id)
-                .set(upvotes, SetOptions.merge());
+            // Upvote count
+            Map<String, String> upvotes = new HashMap<>();
+            upvotes.put("upvotes", "0");
+            mDb.collection(MODULES)
+                    .document(s)
+                    .collection("thread")
+                    .document(id)
+                    .set(upvotes, SetOptions.merge());
 
-        Map<String, String> data2 = new HashMap<>();
-        data2.put("username",fbuser.getDisplayName());
-        data2.put("title",t);
-        data2.put("userid",fbuser.getUid());
-        data2.put("body",b);
-        data2.put("time", Instant.now().toString());
-        mDb.collection(MODULES)
-                .document(s)
-                .collection("thread")
-                .document(id)
-                .set(data2, SetOptions.merge())
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        intent[0] = new Intent(ThreadAddActivity.this,listviewonclick2.class);
-                        intent[0].putExtra("course",s);
-                        startActivity(intent[0]);
-                    }
-                });
-        //initRecyclerView(s);
-        //adapter.notifyDataSetChanged();
-
-
+            Map<String, String> data2 = new HashMap<>();
+            data2.put("username",fbuser.getDisplayName());
+            data2.put("title",t);
+            data2.put("userid",fbuser.getUid());
+            data2.put("body",b);
+            data2.put("time", Instant.now().toString());
+            mDb.collection(MODULES)
+                    .document(s)
+                    .collection("thread")
+                    .document(id)
+                    .set(data2, SetOptions.merge())
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            intent[0] = new Intent(ThreadAddActivity.this,listviewonclick2.class);
+                            intent[0].putExtra("course",s);
+                            startActivity(intent[0]);
+                        }
+                    });
+            //initRecyclerView(s);
+            //adapter.notifyDataSetChanged();
+        }
     }
 }
